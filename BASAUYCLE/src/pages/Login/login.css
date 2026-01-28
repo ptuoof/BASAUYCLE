@@ -12,25 +12,9 @@ body {
 /* Page */
 .login-page {
   min-height: 100vh;
-  background-color: #eaf7f4;
-  background-image:
-    repeating-linear-gradient(
-      60deg,
-      rgba(255, 255, 255, 0.4) 0,
-      rgba(255, 255, 255, 0.4) 1px,
-      transparent 1px,
-      transparent 60px
-    ),
-    repeating-linear-gradient(
-      -60deg,
-      rgba(255, 255, 255, 0.4) 0,
-      rgba(255, 255, 255, 0.4) 1px,
-      transparent 1px,
-      transparent 60px
-    );
+  background-color: #F8F9FA;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 /* Header */
@@ -48,10 +32,15 @@ body {
   gap: 8px;
   font-weight: 700;
   font-size: 18px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .logo-icon {
-  color: #00c2a8;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .header-actions {
@@ -78,11 +67,12 @@ body {
 
 /* Card */
 .login-card {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
   background: #ffffff;
   border-radius: 20px;
   padding: 32px;
-  margin-top: 40px;
+  margin: 60px auto 40px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
@@ -233,6 +223,11 @@ body {
   background: #f8fafc;
 }
 
+.social-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* Footer */
 .login-footer {
   margin-top: 20px;
@@ -241,16 +236,15 @@ body {
   color: #64748b;
 }
 
-.login-footer a {
+.login-footer a,
+.register-link {
   color: #00c2a8;
   text-decoration: none;
   font-weight: 600;
 }
 
-/* Page footer */
-.page-footer {
-  margin-top: auto;
-  padding: 20px;
-  font-size: 13px;
-  color: #64748b;
+.login-footer a:hover,
+.register-link:hover {
+  text-decoration: underline;
 }
+

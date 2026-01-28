@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import './VNPayPayment.css'
-import bikeImage from '../assets/bike-tarmac-sl7.png'
-import bikeLogo from '../assets/bike-logo.png'
+import { Link } from 'react-router-dom'
+import './index.css'
+import bikeImage from '../../assets/bike-tarmac-sl7.png'
+import bikeLogo from '../../assets/bike-logo.png'
 
 const BANKS = [
   'VIETCOMBANK',
@@ -68,12 +69,12 @@ export default function VNPayPayment() {
     <div className="vnpay-page">
       <header className="vnpay-header">
         <div className="vnpay-header-inner">
-          <div className="vnpay-logo">
+          <Link to="/" className="vnpay-logo">
             <img src={bikeLogo} alt="BASAUYCLE Logo" className="vnpay-logo-icon" />
             <div>
               <div className="vnpay-logo-text-main">BASAUYCLE</div>
             </div>
-          </div>
+          </Link>
 
           <nav className="vnpay-nav">
             <a href="#" className="vnpay-nav-active">
@@ -308,10 +309,10 @@ export default function VNPayPayment() {
         <footer className="vnpay-footer">
           <div className="vnpay-footer-top">
             <div>
-              <div className="vnpay-footer-logo">
+              <Link to="/" className="vnpay-footer-logo">
                 <img src={bikeLogo} alt="BASAUYCLE Logo" className="vnpay-logo-icon" />
                 <div className="vnpay-logo-text-main">BASAUYCLE</div>
-              </div>
+              </Link>
               <div>
                 Premium marketplace for serious cyclists. Buy and sell with
                 confidence.

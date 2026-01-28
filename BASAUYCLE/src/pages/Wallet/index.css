@@ -43,6 +43,8 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .wallet-logo-icon {
@@ -748,6 +750,9 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 16px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .wallet-footer-description {

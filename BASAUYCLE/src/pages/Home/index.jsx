@@ -7,15 +7,42 @@ import CTA from '../../component/CTA';
 import Footer from '../../component/footer';
 
 export default function Home() {
+  const navLinks = [
+    { label: 'Browse', href: '#' },
+    { label: 'Inspections', href: '#' },
+    { label: 'How It Works', href: '#' },
+    { label: 'About', href: '#' }
+  ];
+
   return (
     <main className="min-h-screen bg-white">
-      <Header />
+      <Header 
+        navLinks={navLinks}
+        showSearch={false}
+        showAvatar={true}
+        showSellButton={true}
+        showLogin={true}
+      />
       <Hero />
       <CategoryFilter />
       <FeaturedBikes />
       <Features />
       <CTA />
-      <Footer />
+      <Footer 
+        showSubscribe={true}
+        companyLinks={[
+          { label: 'About Us', href: '#' },
+          { label: 'Careers', href: '#' },
+          { label: 'Help Center', href: '#' },
+          { label: 'Privacy Policy', href: '#' },
+          { label: 'Terms of Service', href: '#' }
+        ]}
+        resourcesLinks={[
+          { label: 'Buyer Protection', href: '#' },
+          { label: 'Seller Guide', href: '#' },
+          { label: 'Trust & Safety', href: '#' }
+        ]}
+      />
     </main>
   );
 }

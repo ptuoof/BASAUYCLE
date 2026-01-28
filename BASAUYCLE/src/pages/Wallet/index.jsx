@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import './MyWallet.css'
-import bikeLogo from '../assets/bike-logo.png'
+import { Link } from 'react-router-dom'
+import './index.css'
+import bikeLogo from '../../assets/bike-logo.png'
 
 const MyWallet = () => {
   const [activeTab, setActiveTab] = useState('deposit')
@@ -61,10 +62,10 @@ const MyWallet = () => {
       <header className="wallet-header">
         <div className="wallet-header-inner">
           <div className="wallet-header-left">
-            <div className="wallet-logo">
+            <Link to="/" className="wallet-logo">
               <img src={bikeLogo} alt="BikeMarket" className="wallet-logo-icon" />
               <span className="wallet-logo-text">BikeMarket</span>
-            </div>
+            </Link>
             <nav className="wallet-nav">
               <a href="#" className="wallet-nav-link">Buy</a>
               <a href="#" className="wallet-nav-link">Sell</a>
@@ -354,10 +355,10 @@ const MyWallet = () => {
         <div className="wallet-footer-inner">
           <div className="wallet-footer-columns">
             <div className="wallet-footer-column">
-              <div className="wallet-footer-logo">
+              <Link to="/" className="wallet-footer-logo">
                 <img src={bikeLogo} alt="BikeMarket" className="wallet-logo-icon" />
                 <span className="wallet-logo-text">BikeMarket</span>
-              </div>
+              </Link>
               <p className="wallet-footer-description">
                 The world's leading community for buying and selling high-quality bicycles
               </p>
