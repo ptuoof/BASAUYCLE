@@ -1,0 +1,4 @@
+/* Optional – đồng bộ input bo góc với Login */
+.MuiOutlinedInput-root {
+  border-radius: 0.75rem;
+}
