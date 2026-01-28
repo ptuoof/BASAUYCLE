@@ -1,6 +1,10 @@
+import { Row, Col, Typography, Button, Input, Space } from 'antd';
+import { ShareAltOutlined, EnvironmentOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import bikeLogo from '../assets/bike-logo.png';
 import './footer.css';
+
+const { Title, Text } = Typography;
 
 export default function Footer({ 
   showSubscribe = false,
@@ -34,78 +38,181 @@ export default function Footer({
   return (
     <footer className="app-footer app-footer-dark">
       <div className="app-footer-inner">
-        <div className="app-footer-top">
-          <div>
+        <Row gutter={[24, 24]} className="app-footer-top">
+          <Col xs={24} md={10}>
             <Link to="/" className="app-footer-logo">
               <img src={bikeLogo} alt="36 Bikes" className="app-footer-logo-icon" />
-              <span className="app-footer-logo-text">36BIKES</span>
+              <Title level={5} style={{ margin: 0, color: 'white', fontSize: 18, fontWeight: 700 }}>
+                36BIKES
+              </Title>
             </Link>
-            <p className="app-footer-description">
+            <Text style={{ color: '#9ca3af', fontSize: 13, display: 'block', marginBottom: 16, lineHeight: 1.5 }}>
               The premium destination for cyclists to buy and sell high-performance equipment with confidence and ease.
-            </p>
-            <div className="app-footer-social">
-              <a href="#" className="app-footer-social-icon" aria-label="Share">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                </svg>
-              </a>
-              <a href="#" className="app-footer-social-icon" aria-label="Location">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </a>
-              <a href="#" className="app-footer-social-icon" aria-label="Globe">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-              </a>
-            </div>
-          </div>
+            </Text>
+            <Space size={8}>
+              <Button
+                type="text"
+                icon={<ShareAltOutlined />}
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: '#1f2937',
+                  color: '#9ca3af',
+                  border: 'none',
+                }}
+                aria-label="Share"
+              />
+              <Button
+                type="text"
+                icon={<EnvironmentOutlined />}
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: '#1f2937',
+                  color: '#9ca3af',
+                  border: 'none',
+                }}
+                aria-label="Location"
+              />
+              <Button
+                type="text"
+                icon={<GlobalOutlined />}
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: '#1f2937',
+                  color: '#9ca3af',
+                  border: 'none',
+                }}
+                aria-label="Globe"
+              />
+            </Space>
+          </Col>
 
-          <div>
-            <div className="app-footer-title">Marketplace</div>
-            <div className="app-footer-links">
+          <Col xs={12} sm={8} md={5}>
+            <Title level={5} style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'white' }}>
+              Marketplace
+            </Title>
+            <Space direction="vertical" size={6} style={{ width: '100%' }}>
               {marketplaceLinks.map((link) => (
-                <a key={link.label} href={link.href}>
+                <a
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    display: 'block',
+                    color: '#9ca3af',
+                    textDecoration: 'none',
+                    fontSize: 13,
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = 'white'}
+                  onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
+                >
                   {link.label}
                 </a>
               ))}
-            </div>
-          </div>
+            </Space>
+          </Col>
 
-          <div>
-            <div className="app-footer-title">Services</div>
-            <div className="app-footer-links">
+          <Col xs={12} sm={8} md={5}>
+            <Title level={5} style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'white' }}>
+              Services
+            </Title>
+            <Space direction="vertical" size={6} style={{ width: '100%' }}>
               {servicesLinks.map((link) => (
-                <a key={link.label} href={link.href}>
+                <a
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    display: 'block',
+                    color: '#9ca3af',
+                    textDecoration: 'none',
+                    fontSize: 13,
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = 'white'}
+                  onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
+                >
                   {link.label}
                 </a>
               ))}
-            </div>
-          </div>
+            </Space>
+          </Col>
 
-          <div>
-            <div className="app-footer-title">Company</div>
-            <div className="app-footer-links">
-              {companyLinks.map((link) => (
-                <a key={link.label} href={link.href}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+          <Col xs={24} sm={8} md={4}>
+            {showSubscribe ? (
+              <>
+                <Title level={5} style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'white' }}>
+                  Subscribe
+                </Title>
+                <Text style={{ color: '#9ca3af', fontSize: 13, display: 'block', marginBottom: 8 }}>
+                  Get the latest deals and updates.
+                </Text>
+                <Space.Compact style={{ width: '100%' }}>
+                  <Input placeholder="Email" style={{ borderRadius: '999px 0 0 999px' }} />
+                  <Button
+                    type="primary"
+                    style={{
+                      backgroundColor: '#1ABC9C',
+                      borderColor: '#1ABC9C',
+                      borderRadius: '0 999px 999px 0',
+                    }}
+                  >
+                    Join
+                  </Button>
+                </Space.Compact>
+              </>
+            ) : (
+              <>
+                <Title level={5} style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'white' }}>
+                  Company
+                </Title>
+                <Space direction="vertical" size={6} style={{ width: '100%' }}>
+                  {companyLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      style={{
+                        display: 'block',
+                        color: '#9ca3af',
+                        textDecoration: 'none',
+                        fontSize: 13,
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseEnter={(e) => e.target.style.color = 'white'}
+                      onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </Space>
+              </>
+            )}
+          </Col>
+        </Row>
 
         <div className="app-footer-bottom">
-          <div>© 2024 36 Bikes Marketplace Inc. All rights reserved.</div>
-          <div className="app-footer-bottom-links">
+          <Text style={{ color: '#9ca3af', fontSize: 12 }}>
+            © 2024 36 Bikes Marketplace Inc. All rights reserved.
+          </Text>
+          <Space size={14}>
             {bottomLinks.map((link) => (
-              <a key={link.label} href={link.href}>
+              <a
+                key={link.label}
+                href={link.href}
+                style={{
+                  color: '#6b7280',
+                  textDecoration: 'none',
+                  fontSize: 12,
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={(e) => e.target.style.color = '#111827'}
+                onMouseLeave={(e) => e.target.style.color = '#6b7280'}
+              >
                 {link.label}
               </a>
             ))}
-          </div>
+          </Space>
         </div>
       </div>
     </footer>

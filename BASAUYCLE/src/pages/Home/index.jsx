@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import Header from '../../component/header';
 import Hero from '../../component/Hero';
 import CategoryFilter from '../../component/CategoryFilter';
@@ -15,7 +16,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
+    <Box component="main" sx={{ minHeight: '100vh', backgroundColor: 'white' }}>
       <Header 
         navLinks={navLinks}
         showSearch={false}
@@ -43,6 +44,6 @@ export default function Home() {
           { label: 'Trust & Safety', href: '#' }
         ]}
       />
-    </main>
+    </Box>
   );
 }
