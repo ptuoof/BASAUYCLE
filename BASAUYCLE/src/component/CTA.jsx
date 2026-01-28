@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { PlusOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
 const CTASection = styled(Box)(({ theme }) => ({
@@ -65,6 +66,8 @@ const CTAButton = styled(Button)({
 });
 
 export default function CTA() {
+  const navigate = useNavigate();
+
   return (
     <CTASection component="section">
       <BackgroundShape />
@@ -76,9 +79,10 @@ export default function CTA() {
           <CTADescription>
             List your bike for free and reach thousands of verified buyers in our premium cycling community.
           </CTADescription>
-          <CTAButton 
+          <CTAButton
             variant="dark"
             icon={<PlusOutlined />}
+            onClick={() => navigate('/post')}
           >
             List Your Bike Now
           </CTAButton>

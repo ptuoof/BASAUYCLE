@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
 import Wallet from "./pages/Wallet";
+import PostBike from "./pages/Post";
 
 const muiTheme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="/post" element={<PostBike />} />
             </Routes>
           </BrowserRouter>
         </ConfigProvider>

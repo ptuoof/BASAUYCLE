@@ -133,8 +133,8 @@ const LoginButton = styled(Button)({
   },
 });
 
-export default function Header({ 
-  showSearch = false, 
+export default function Header({
+  showSearch = false,
   showAvatar = false,
   showSellButton = false,
   navLinks = [
@@ -182,7 +182,7 @@ export default function Header({
 
         <RightSection>
           {showSellButton && (
-            <SellButton>Sell Your Bike</SellButton>
+            <SellButton component={Link} to="/post">Sell Your Bike</SellButton>
           )}
           {showLogin && (
             <LoginButton component={Link} to="/login">
