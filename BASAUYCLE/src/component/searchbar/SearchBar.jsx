@@ -10,17 +10,24 @@ export default function SearchBar() {
 
   const customTheme = {
     token: {
-      borderRadius: 12,
+      borderRadius: 8,
       fontSize: 13,
     },
     components: {
       Input: {
-        paddingBlock: 8,
-        paddingInline: 14,
+        paddingBlock: 6,
+        paddingInline: 12,
+        controlHeight: 38,
       },
       Select: {
-        paddingBlock: 8,
-        paddingInline: 14,
+        paddingBlock: 6,
+        paddingInline: 12,
+        controlHeight: 38,
+      },
+      Button: {
+        controlHeight: 38,
+        paddingBlock: 6,
+        paddingInline: 16,
       },
     },
   };
@@ -32,10 +39,10 @@ export default function SearchBar() {
           <div className="search-bar-input-wrapper">
             <Typography.Text className="search-bar-label">SEARCH ANYTHING</Typography.Text>
             <Input
-              prefix={<SearchOutlined style={{ color: '#9ca3af' }} />}
+              prefix={<SearchOutlined style={{ color: '#20c997', fontSize: 14 }} />}
               placeholder="Brand or model..."
-              size="large"
-              style={{ borderRadius: 12 }}
+              size="middle"
+              style={{ borderRadius: 8 }}
             />
           </div>
 
@@ -43,9 +50,9 @@ export default function SearchBar() {
             <Typography.Text className="search-bar-label">BIKE TYPE</Typography.Text>
             <Select
               defaultValue="All Types"
-              size="large"
-              style={{ width: '100%', borderRadius: 12 }}
-              suffixIcon={<CalendarOutlined style={{ color: '#9ca3af' }} />}
+              size="middle"
+              style={{ width: '100%', borderRadius: 8 }}
+              suffixIcon={<CalendarOutlined style={{ color: '#9ca3af', fontSize: 12 }} />}
             >
               {bikeTypes.map((type) => (
                 <Option key={type} value={type}>{type}</Option>
@@ -57,9 +64,9 @@ export default function SearchBar() {
             <Typography.Text className="search-bar-label">PRICE RANGE</Typography.Text>
             <Select
               defaultValue="Any Price"
-              size="large"
-              style={{ width: '100%', borderRadius: 12 }}
-              suffixIcon={<DollarCircleOutlined style={{ color: '#9ca3af' }} />}
+              size="middle"
+              style={{ width: '100%', borderRadius: 8 }}
+              suffixIcon={<DollarCircleOutlined style={{ color: '#9ca3af', fontSize: 12 }} />}
             >
               {priceRanges.map((range) => (
                 <Option key={range} value={range}>{range}</Option>
@@ -69,15 +76,14 @@ export default function SearchBar() {
 
           <Button
             type="primary"
-            size="large"
+            size="middle"
             block
             style={{
-              backgroundColor: '#020617',
-              borderColor: '#020617',
-              borderRadius: 12,
-              fontSize: 14,
+              backgroundColor: '#171D2F',
+              borderColor: '#171D2F',
+              borderRadius: 8,
+              fontSize: 13,
               fontWeight: 600,
-              height: 'fit-content',
               marginTop: 'auto',
             }}
           >

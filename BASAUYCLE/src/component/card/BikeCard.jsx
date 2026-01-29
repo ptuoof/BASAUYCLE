@@ -3,13 +3,13 @@ import { HeartOutlined, AppstoreOutlined, SettingOutlined, ThunderboltOutlined }
 import './BikeCard.css';
 
 export default function BikeCard({ bike }) {
-  const getBadgeColor = (badge) => {
-    const colors = {
-      'NEW ARRIVAL': '#1ABC9C',
-      'INSPECTED': '#10b981',
-      'TOP RATED': '#34d399',
+  const getBadgeStyle = (badge) => {
+    const styles = {
+      'NEW ARRIVAL': { backgroundColor: '#FAD02E', color: '#0f172a' },
+      'INSPECTED': { backgroundColor: '#00ccad', color: '#0f172a' },
+      'TOP RATED': { backgroundColor: '#00ccad', color: '#0f172a' },
     };
-    return colors[badge] || '#1a1a1a';
+    return styles[badge] || { backgroundColor: '#1a1a1a', color: '#fff' };
   };
 
   return (
@@ -24,27 +24,27 @@ export default function BikeCard({ bike }) {
       }}
       cover={
         <div className="bike-card-image-wrapper" style={{ position: 'relative', aspectRatio: '4 / 3', overflow: 'hidden', backgroundColor: '#f3f4f6' }}>
-          <img 
-            src={bike.image} 
+          <img
+            src={bike.image}
             alt={bike.name}
             className="bike-card-image"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', transition: 'transform 0.3s' }}
           />
           {bike.badge && (
             <Tag
-              color={getBadgeColor(bike.badge)}
               style={{
                 position: 'absolute',
                 top: 16,
                 left: 16,
-                fontSize: 11,
-                fontWeight: 700,
-                height: 24,
-                lineHeight: '24px',
+                fontSize: 10,
+                fontWeight: 800,
+                height: 22,
+                lineHeight: '22px',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
                 border: 'none',
                 zIndex: 1,
+                ...getBadgeStyle(bike.badge),
               }}
             >
               {bike.badge}
@@ -72,10 +72,16 @@ export default function BikeCard({ bike }) {
         </div>
       }
       styles={{
-        body: { padding: 20 },
+        body: {
+          padding: 20,
+          paddingBottom: 20,
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+        },
       }}
     >
-      <Typography.Text type="secondary" style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: 8 }}>
+      <Typography.Text style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: 8, color: '#00ccad' }}>
         {bike.category}
       </Typography.Text>
       <Typography.Text strong style={{ fontSize: 24, fontWeight: 700, color: '#1a1a1a', display: 'block', marginBottom: 12 }}>

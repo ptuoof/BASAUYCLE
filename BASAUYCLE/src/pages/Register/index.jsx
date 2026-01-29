@@ -1,4 +1,4 @@
-import { Form, Input, Button, Card, Typography, Checkbox, Divider, Space, Row, Col, ConfigProvider } from 'antd';
+import { Form, Input, Button, Card, Typography, Checkbox, Divider, Space, ConfigProvider, Row, Col } from 'antd';
 import { Link } from "react-router-dom";
 import Header from "../../component/header";
 import Footer from "../../component/footer";
@@ -49,10 +49,10 @@ export default function Register() {
           <Card className="register-card">
             <div className="register-title">
               <Typography.Title level={2} style={{ margin: 0, marginBottom: 8, fontWeight: 700, color: '#1A1A1A' }}>
-                Create Your Account
+                Sign Up
               </Typography.Title>
               <Typography.Text type="secondary" style={{ fontSize: 14 }}>
-                Join the community for buying, selling, and inspecting bicycles.
+                Welcome to the most trusted bicycle marketplace
               </Typography.Text>
             </div>
 
@@ -63,46 +63,68 @@ export default function Register() {
               layout="vertical"
               requiredMark={false}
               size="large"
+              style={{ marginBottom: 0 }}
             >
               <Form.Item
                 name="fullName"
+                label={<span style={{ fontWeight: 600, color: '#333333', fontSize: 14 }}>Full Name</span>}
                 rules={[{ required: true, message: 'Please input your full name!' }]}
+                style={{ marginBottom: 24 }}
               >
-                <Input placeholder="e.g., John Doe" style={{ borderRadius: 8 }} />
+                <Input
+                  placeholder="e.g., Tran Chi Cuong "
+                  style={{ borderRadius: 8, border: '1px solid #d9d9d9', padding: '10px 12px' }}
+                />
               </Form.Item>
 
               <Form.Item
                 name="email"
+                label={<span style={{ fontWeight: 600, color: '#333333', fontSize: 14 }}>Email Address</span>}
                 rules={[
                   { required: true, message: 'Please input your email!' },
                   { type: 'email', message: 'Please enter a valid email!' }
                 ]}
+                style={{ marginBottom: 24 }}
               >
-                <Input placeholder="name@email.com" style={{ borderRadius: 8 }} />
+                <Input
+                  placeholder="email@example.com"
+                  style={{ borderRadius: 8, border: '1px solid #d9d9d9', padding: '10px 12px' }}
+                />
               </Form.Item>
 
               <Form.Item
                 name="phone"
+                label={<span style={{ fontWeight: 600, color: '#333333', fontSize: 14 }}>Phone Number</span>}
                 rules={[{ required: true, message: 'Please input your phone number!' }]}
+                style={{ marginBottom: 24 }}
               >
-                <Input placeholder="+1 (555) 000-0000" style={{ borderRadius: 8 }} />
+                <Input
+                  placeholder="Enter your phone number"
+                  style={{ borderRadius: 8, border: '1px solid #d9d9d9', padding: '10px 12px' }}
+                />
               </Form.Item>
 
               <Row gutter={16}>
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name="password"
+                    label={<span style={{ fontWeight: 600, color: '#333333', fontSize: 14 }}>Password</span>}
                     rules={[
                       { required: true, message: 'Please input your password!' },
                       { min: 8, message: 'Password must be at least 8 characters!' }
                     ]}
+                    style={{ marginBottom: 24 }}
                   >
-                    <Input.Password placeholder="8+ characters" style={{ borderRadius: 8 }} />
+                    <Input.Password
+                      placeholder="8+ characters"
+                      style={{ borderRadius: 8, border: '1px solid #d9d9d9', padding: '10px 12px' }}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name="confirmPassword"
+                    label={<span style={{ fontWeight: 600, color: '#333333', fontSize: 14 }}>Confirm Password</span>}
                     dependencies={['password']}
                     rules={[
                       { required: true, message: 'Please confirm your password!' },
@@ -115,8 +137,12 @@ export default function Register() {
                         },
                       }),
                     ]}
+                    style={{ marginBottom: 24 }}
                   >
-                    <Input.Password placeholder="Repeat password" style={{ borderRadius: 8 }} />
+                    <Input.Password
+                      placeholder="Repeat password"
+                      style={{ borderRadius: 8, border: '1px solid #d9d9d9', padding: '10px 12px' }}
+                    />
                   </Form.Item>
                 </Col>
               </Row>
@@ -157,7 +183,7 @@ export default function Register() {
                     marginTop: 4,
                   }}
                 >
-                  Create Account
+                  Sign Up
                 </Button>
               </Form.Item>
             </Form>
@@ -196,7 +222,7 @@ export default function Register() {
               <Typography.Text type="secondary" style={{ fontSize: 14 }}>
                 Already have an account?{' '}
                 <Link to="/login" style={{ color: '#1ABC9C', fontWeight: 600, textDecoration: 'none' }}>
-                  Log In
+                  Sign In
                 </Link>
               </Typography.Text>
             </div>

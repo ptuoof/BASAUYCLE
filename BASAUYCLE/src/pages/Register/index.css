@@ -31,6 +31,11 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Khoảng cách nhỏ giữa label và input (8px) */
+.register-card .ant-form-item-label {
+  padding-bottom: 8px;
+}
+
 /* Title */
 .register-title {
   text-align: center;

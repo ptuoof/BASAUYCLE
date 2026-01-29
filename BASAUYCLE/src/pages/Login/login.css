@@ -31,15 +31,17 @@ body {
   align-items: center;
   gap: 8px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 

@@ -21,7 +21,7 @@ const MyWallet = () => {
     {
       date: 'Oct 24, 2025',
       type: 'Deposit',
-      typeIcon: '💰',
+      typeIcon: '',
       transactionId: 'TXN-892918',
       amount: '+5,000,000 VND',
       status: 'SUCCESS',
@@ -30,7 +30,7 @@ const MyWallet = () => {
     {
       date: 'Oct 21, 2025',
       type: 'Bike Purchase',
-      typeIcon: '🚲',
+      typeIcon: '',
       transactionId: 'TXN-773128',
       amount: '-12,400,000 VND',
       status: 'SUCCESS',
@@ -39,7 +39,7 @@ const MyWallet = () => {
     {
       date: 'Oct 18, 2025',
       type: 'Refund',
-      typeIcon: '↩️',
+      typeIcon: '',
       transactionId: 'TXN-661903',
       amount: '+850,000 VND',
       status: 'SUCCESS',
@@ -48,7 +48,7 @@ const MyWallet = () => {
     {
       date: 'Oct 15, 2025',
       type: 'Deposit',
-      typeIcon: '💰',
+      typeIcon: '',
       transactionId: 'TXN-536102',
       amount: '+30,000,000 VND',
       status: 'PROCESSING',
@@ -64,7 +64,7 @@ const MyWallet = () => {
           <div className="wallet-header-left">
             <Link to="/" className="wallet-logo">
               <img src={bikeLogo} alt="BikeMarket" className="wallet-logo-icon" />
-              <span className="wallet-logo-text">BikeMarket</span>
+              <span className="wallet-logo-text">BASAUYCLE</span>
             </Link>
             <nav className="wallet-nav">
               <a href="#" className="wallet-nav-link">Buy</a>
@@ -79,9 +79,9 @@ const MyWallet = () => {
                 <circle cx="11" cy="11" r="8" strokeWidth="2"/>
                 <path d="m21 21-4.35-4.35" strokeWidth="2" strokeLinecap="round"/>
               </svg>
-              <input 
-                type="text" 
-                placeholder="Search bikes, parts..." 
+              <input
+                type="text"
+                placeholder="Search bikes, parts..."
                 className="wallet-search-input"
               />
             </div>
@@ -165,13 +165,13 @@ const MyWallet = () => {
 
             {/* Tabs */}
             <div className="wallet-tabs">
-              <button 
+              <button
                 className={`wallet-tab ${activeTab === 'deposit' ? 'active' : ''}`}
                 onClick={() => setActiveTab('deposit')}
               >
                 Deposit
               </button>
-              <button 
+              <button
                 className={`wallet-tab ${activeTab === 'withdraw' ? 'active' : ''}`}
                 onClick={() => setActiveTab('withdraw')}
               >
@@ -183,8 +183,8 @@ const MyWallet = () => {
             <div className="wallet-input-group">
               <label className="wallet-label">Enter Amount (VND)</label>
               <div className="wallet-input-wrapper">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="wallet-input"
@@ -196,7 +196,7 @@ const MyWallet = () => {
             {/* Quick Amount Chips */}
             <div className="wallet-quick-amounts">
               {quickAmounts.map((amt) => (
-                <button 
+                <button
                   key={amt}
                   className="wallet-chip"
                   onClick={() => addAmount(amt)}
@@ -210,7 +210,7 @@ const MyWallet = () => {
             <div className="wallet-payment-section">
               <label className="wallet-label">Payment Method</label>
               <div className="wallet-payment-methods">
-                <button 
+                <button
                   className={`wallet-payment-method ${paymentMethod === 'bank' ? 'active' : ''}`}
                   onClick={() => setPaymentMethod('bank')}
                 >
@@ -220,7 +220,7 @@ const MyWallet = () => {
                   </svg>
                   <span>Bank Transfer</span>
                 </button>
-                <button 
+                <button
                   className={`wallet-payment-method ${paymentMethod === 'card' ? 'active' : ''}`}
                   onClick={() => setPaymentMethod('card')}
                 >
@@ -230,7 +230,7 @@ const MyWallet = () => {
                   </svg>
                   <span>Credit Card</span>
                 </button>
-                <button 
+                <button
                   className={`wallet-payment-method ${paymentMethod === 'qr' ? 'active' : ''}`}
                   onClick={() => setPaymentMethod('qr')}
                 >
@@ -356,8 +356,8 @@ const MyWallet = () => {
           <div className="wallet-footer-columns">
             <div className="wallet-footer-column">
               <Link to="/" className="wallet-footer-logo">
-                <img src={bikeLogo} alt="BikeMarket" className="wallet-logo-icon" />
-                <span className="wallet-logo-text">BikeMarket</span>
+                <img src={bikeLogo} alt="BASAUYCLE" className="wallet-logo-icon" />
+                <span className="wallet-logo-text">BASAUYCLE</span>
               </Link>
               <p className="wallet-footer-description">
                 The world's leading community for buying and selling high-quality bicycles
@@ -387,9 +387,9 @@ const MyWallet = () => {
             <div className="wallet-footer-column">
               <h4 className="wallet-footer-heading">Newsletter</h4>
               <div className="wallet-newsletter">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
+                <input
+                  type="email"
+                  placeholder="Your email"
                   className="wallet-newsletter-input"
                 />
                 <button className="wallet-newsletter-btn">Join</button>
@@ -398,7 +398,7 @@ const MyWallet = () => {
           </div>
 
           <div className="wallet-footer-bottom">
-            <p>© 2026 BikeMarket. All rights reserved. Secure payment processing by PayPal.</p>
+            <p>© 2026 BASAUYCLE. All rights reserved. Secure payment processing by PayPal.</p>
           </div>
         </div>
       </footer>

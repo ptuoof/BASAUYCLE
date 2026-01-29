@@ -49,10 +49,10 @@ export default function Login() {
         <Card className="login-card">
           <div className="login-title">
             <Typography.Title level={2} style={{ margin: 0, marginBottom: 8, fontWeight: 700, color: '#0f172a' }}>
-              Welcome Back
+              Sign In
             </Typography.Title>
             <Typography.Text type="secondary" style={{ fontSize: 14 }}>
-              The premium marketplace for riders.
+              Helping riders find the perfect next bike
             </Typography.Text>
           </div>
 
@@ -71,11 +71,14 @@ export default function Login() {
                 { type: 'email', message: 'Please enter a valid email!' }
               ]}
             >
-              <Input
-                prefix={<MailOutlined style={{ color: '#94a3b8' }} />}
-                placeholder="name@example.com"
-                style={{ borderRadius: 10 }}
-              />
+              <Space direction="vertical" size={4} style={{ width: '100%' }}>
+                <Typography.Text style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>Email Address</Typography.Text>
+                <Input
+                  prefix={<MailOutlined style={{ color: '#94a3b8' }} />}
+                  placeholder="name@example.com"
+                  style={{ borderRadius: 10 }}
+                />
+              </Space>
             </Form.Item>
 
             <Form.Item
@@ -84,7 +87,7 @@ export default function Login() {
             >
               <Space direction="vertical" size={4} style={{ width: '100%' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography.Text style={{ fontSize: 14, color: '#334155' }}>Password</Typography.Text>
+                  <Typography.Text style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>Password</Typography.Text>
                   <Link to="#" style={{ fontSize: 13, color: '#00c2a8', textDecoration: 'none' }}>
                     Forgot password?
                   </Link>
@@ -145,11 +148,11 @@ export default function Login() {
             </Button>
           </Space>
 
-          <div className="login-footer">
+          <div className="login-footer" style={{ textAlign: 'center' }}>
             <Typography.Text type="secondary" style={{ fontSize: 14 }}>
               Don&apos;t have an account?{' '}
               <Link to="/register" style={{ color: '#00c2a8', fontWeight: 600, textDecoration: 'none' }}>
-                Register as Buyer or Seller
+                Sign Up
               </Link>
             </Typography.Text>
           </div>

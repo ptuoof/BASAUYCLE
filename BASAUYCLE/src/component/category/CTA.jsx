@@ -2,12 +2,12 @@ import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import Button from './Button';
+import Button from '../Button';
 
 const CTASection = styled(Box)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(12.5, 0),
-  backgroundColor: '#1ABC9C',
+  backgroundColor: '#00ccad',
   overflow: 'hidden',
 }));
 
@@ -45,14 +45,10 @@ const CTATitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
-const TitleHighlight = styled('span')({
-  color: 'white',
-});
-
 const CTADescription = styled(Typography)(({ theme }) => ({
   fontSize: 18,
   lineHeight: 1.6,
-  color: 'white',
+  color: 'rgba(15, 23, 42, 0.85)',
   marginBottom: theme.spacing(4),
   [theme.breakpoints.down('md')]: {
     fontSize: 16,
@@ -62,7 +58,14 @@ const CTADescription = styled(Typography)(({ theme }) => ({
 const CTAButton = styled(Button)({
   padding: '14px 32px',
   fontSize: 16,
-  fontWeight: 600,
+  fontWeight: 700,
+  backgroundColor: '#0f172a',
+  color: '#fff',
+  border: 'none',
+  '&:hover': {
+    backgroundColor: '#1e293b',
+    color: '#fff',
+  },
 });
 
 export default function CTA() {
@@ -74,7 +77,9 @@ export default function CTA() {
       <CTAContainer>
         <CTAContent>
           <CTATitle variant="h2">
-            Ready to upgrade your ride? <TitleHighlight>Sell your bike in minutes.</TitleHighlight>
+            Ready to upgrade your ride?
+            <br />
+            Sell your bike in minutes.
           </CTATitle>
           <CTADescription>
             List your bike for free and reach thousands of verified buyers in our premium cycling community.

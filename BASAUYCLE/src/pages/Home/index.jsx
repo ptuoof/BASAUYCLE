@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import Header from '../../component/header';
-import Hero from '../../component/Hero';
-import CategoryFilter from '../../component/CategoryFilter';
-import FeaturedBikes from '../../component/FeaturedBikes';
-import Features from '../../component/Features';
-import CTA from '../../component/CTA';
+import Hero from '../../component/hero';
+import CategoryFilter from '../../component/category/CategoryFilter';
+import FeaturedBikes from '../../component/features/FeaturedBikes';
+import Features from '../../component/features/Features';
+import CTA from '../../component/category/CTA';
 import Footer from '../../component/footer';
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
   ];
 
   return (
-    <Box component="main" sx={{ minHeight: '100vh', backgroundColor: 'white' }}>
+    <Box component="main" sx={{ minHeight: '100vh', backgroundColor: '#f9fafa' }}>
       <Header 
         navLinks={navLinks}
         showSearch={false}
@@ -30,18 +30,13 @@ export default function Home() {
       <Features />
       <CTA />
       <Footer 
-        showSubscribe={true}
+        showSubscribe={false}
         companyLinks={[
           { label: 'About Us', href: '#' },
           { label: 'Careers', href: '#' },
           { label: 'Help Center', href: '#' },
           { label: 'Privacy Policy', href: '#' },
           { label: 'Terms of Service', href: '#' }
-        ]}
-        resourcesLinks={[
-          { label: 'Buyer Protection', href: '#' },
-          { label: 'Seller Guide', href: '#' },
-          { label: 'Trust & Safety', href: '#' }
         ]}
       />
     </Box>

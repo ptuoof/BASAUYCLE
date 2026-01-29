@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Box, Button, Avatar, InputBase, alpha } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { SearchOutlined } from '@ant-design/icons';
-import bikeLogo from '../assets/bike-logo.png';
+import bikeLogo from '../../assets/bike-logo.png';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 0.94),
@@ -38,7 +38,7 @@ const NavLinks = styled(Box)(({ theme }) => ({
   fontSize: 14,
 }));
 
-const NavLink = styled('a')(({ theme, active }) => ({
+const NavLink = styled('a')(({ active }) => ({
   color: active ? '#020617' : '#4b5563',
   textDecoration: 'none',
   fontWeight: 500,
@@ -49,7 +49,7 @@ const NavLink = styled('a')(({ theme, active }) => ({
   },
 }));
 
-const SearchWrapper = styled(Box)(({ theme }) => ({
+const SearchWrapper = styled(Box)(() => ({
   flex: 1,
   display: 'flex',
   justifyContent: 'center',
@@ -106,30 +106,29 @@ const RightSection = styled(Box)(({ theme }) => ({
 }));
 
 const SellButton = styled(Button)({
-  backgroundColor: '#1ABC9C',
-  color: 'white',
+  backgroundColor: '#00ccad',
+  color: '#0f172a',
   padding: '10px 20px',
   borderRadius: 8,
   fontSize: 14,
-  fontWeight: 600,
+  fontWeight: 700,
   textTransform: 'none',
   '&:hover': {
-    backgroundColor: '#16A085',
+    backgroundColor: '#00b89a',
   },
 });
 
 const LoginButton = styled(Button)({
-  backgroundColor: 'white',
-  color: '#1a1a1a',
-  border: '1px solid #e5e7eb',
+  backgroundColor: '#f1f5f9',
+  color: '#0f172a',
+  border: 'none',
   padding: '10px 20px',
   borderRadius: 8,
   fontSize: 14,
-  fontWeight: 600,
+  fontWeight: 700,
   textTransform: 'none',
   '&:hover': {
-    backgroundColor: '#f9fafb',
-    borderColor: '#d1d5db',
+    backgroundColor: '#e2e8f0',
   },
 });
 
@@ -148,10 +147,19 @@ export default function Header({
   return (
     <StyledAppBar position="sticky">
       <StyledToolbar>
-        <LogoLink to="/" aria-label="36 Bikes Home">
-          <img src={bikeLogo} alt="36 Bikes" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-          <Box component="span" sx={{ fontWeight: 700, fontSize: 18, color: '#020617' }}>
-            36BIKES
+        <LogoLink to="/" aria-label="Home">
+          <img src={bikeLogo} alt="" style={{ width: 40, height: 40, objectFit: 'contain' }} />
+          <Box
+            component="span"
+            sx={{
+              fontWeight: 700,
+              fontSize: 20,
+              letterSpacing: '0.02em',
+              color: '#000',
+              textTransform: 'uppercase',
+            }}
+          >
+            BASAUYCLE
           </Box>
         </LogoLink>
 
@@ -186,7 +194,7 @@ export default function Header({
           )}
           {showLogin && (
             <LoginButton component={Link} to="/login">
-              Login
+              Sign In
             </LoginButton>
           )}
           {showAvatar && (

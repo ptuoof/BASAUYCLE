@@ -4,14 +4,18 @@ import { CheckCircleOutlined, CarOutlined, SafetyCertificateOutlined } from '@an
 
 const FeaturesSection = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10, 0),
-  backgroundColor: 'white',
+  backgroundColor: '#f9fafa',
 }));
 
 const FeatureCard = styled(Card)({
+  width: '100%',
   borderRadius: 16,
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-  padding: 32,
+  padding: '24px 20px',
   textAlign: 'center',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   transition: 'box-shadow 0.3s',
   '&:hover': {
     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
@@ -21,7 +25,7 @@ const FeatureCard = styled(Card)({
 const IconWrapper = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: 24,
+  marginBottom: 16,
 });
 
 const IconBox = styled(Box)({
@@ -57,9 +61,9 @@ export default function Features() {
   return (
     <FeaturesSection component="section">
       <Container maxWidth="lg">
-        <Grid container spacing={3}>
+        <Grid container spacing={2.5}>
           {features.map((feature, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid item xs={12} sm={4} key={index} sx={{ display: 'flex' }}>
               <FeatureCard>
                 <CardContent sx={{ p: 0 }}>
                   <IconWrapper>
@@ -67,10 +71,10 @@ export default function Features() {
                       {feature.icon}
                     </IconBox>
                   </IconWrapper>
-                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 1.5, color: '#1a1a1a' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: '#1a1a1a', fontSize: '1.05rem' }}>
                     {feature.title}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                  <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.875rem', lineHeight: 1.5 }}>
                     {feature.description}
                   </Typography>
                 </CardContent>
