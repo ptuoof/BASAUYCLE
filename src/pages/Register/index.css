@@ -1,0 +1,47 @@
+/* Register page - extends auth styles from Login/login.css */
+
+.auth-card--register {
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.auth-card--register .auth-card__title {
+  margin-bottom: 8px;
+}
+
+.auth-card__subtitle {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.auth-card__link-inline {
+  color: #00ccad;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-card__link-inline:hover {
+  text-decoration: underline;
+}
+
+.auth-card__links-text {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.auth-card--register .auth-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.auth-card--register .auth-form__submit {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+  .auth-card--register {
+    padding: 28px 24px;
+  }
+}

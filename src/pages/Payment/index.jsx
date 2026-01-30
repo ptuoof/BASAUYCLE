@@ -1,0 +1,347 @@
+import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import './index.css'
+import bikeImage from '../../assets/bike-tarmac-sl7.png'
+import Header from '../../component/header'
+
+const BANKS = [
+  'VIETCOMBANK',
+  'TECHCOMBANK',
+  'BIDV',
+  'AGRIBANK',
+  'VPBANK',
+  'SACOMBANK',
+  'MB BANK',
+  'ACB',
+  'TPBANK',
+  'VIB',
+]
+
+const ORDER_DATA = {
+  orderId: 'VN882910',
+  bikeName: 'Specialized S-Works Tarmac SL7',
+  seller: 'Ho Chi Minh City Premium Bikes',
+  price: 125000000,
+}
+
+function formatCurrencyVND(amount) {
+  if (typeof amount !== 'number') return ''
+  return amount.toLocaleString('vi-VN') + ' ₫'
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60)
+  const s = seconds % 60
+  const mm = String(m).padStart(2, '0')
+  const ss = String(s).padStart(2, '0')
+  return `${mm}:${ss}`
+}
+
+export default function VNPayPayment() {
+  const [selectedBank, setSelectedBank] = useState(BANKS[0])
+  const [remaining, setRemaining] = useState(9 * 60 + 59) // 09:59
+
+  useEffect(() => {
+    if (remaining <= 0) return
+    const timer = setInterval(() => {
+      setRemaining((prev) => (prev > 0 ? prev - 1 : 0))
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [remaining])
+
+  const formattedTotal = useMemo(
+    () => formatCurrencyVND(ORDER_DATA.price),
+    [],
+  )
+
+  const handlePaid = () => {
+    window.alert('Payment submitted')
+  }
+
+  const handleCancel = () => {
+    const ok = window.confirm('Are you sure you want to cancel this transaction?')
+    if (ok) {
+      window.alert('Transaction cancelled')
+    }
+  }
+
+  return (
+    <div className="vnpay-page">
+      <Header
+        navLinks={[
+          { label: 'Browse', href: '#' },
+          { label: 'Inspections', href: '#' },
+          { label: 'How It Works', href: '#' },
+          { label: 'About', href: '#' },
+        ]}
+        showSearch={true}
+        showAvatar={true}
+        showSellButton={true}
+        showLogin={true}
+      />
+      <main className="vnpay-shell vnpay-main">
+        <div className="vnpay-breadcrumb">
+          Home <span>&gt;</span> Checkout <span>&gt;</span>{' '}
+          <span className="vnpay-breadcrumb-current">VN Pay Payment</span>
+        </div>
+
+        <h1 className="vnpay-title">VN Pay Payment Gateway</h1>
+        <p className="vnpay-subtitle">
+          Complete your transaction securely using Vietnam&apos;s leading payment
+          network.
+        </p>
+
+        <section className="vnpay-layout">
+          <div>
+            {/* Transaction Summary */}
+            <section className="vnpay-section">
+              <div className="vnpay-section-header">
+                <div className="vnpay-section-title">
+                  <div className="vnpay-section-icon">💳</div>
+                  <span>Transaction Summary</span>
+                </div>
+              </div>
+
+              <div className="vnpay-card">
+                <div className="vnpay-transaction-header">
+                  <span className="vnpay-order-badge">
+                    ORDER #{ORDER_DATA.orderId}
+                  </span>
+                  <span className="vnpay-transaction-time">2 mins ago</span>
+                </div>
+
+                <div className="vnpay-transaction-body">
+                  <img
+                    className="vnpay-bike-image"
+                    src={bikeImage}
+                    alt={ORDER_DATA.bikeName}
+                  />
+                  <div>
+                    <div className="vnpay-transaction-info-title">
+                      {ORDER_DATA.bikeName}
+                    </div>
+                    <div className="vnpay-transaction-info-sub">
+                      Seller: {ORDER_DATA.seller}
+                    </div>
+                    <div className="vnpay-transaction-row">
+                      <span className="vnpay-transaction-label">Subtotal</span>
+                      <span className="vnpay-transaction-amount">
+                        {formattedTotal}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Select Local Bank */}
+            <section className="vnpay-section">
+              <div className="vnpay-section-header">
+                <div className="vnpay-section-title">
+                  <div className="vnpay-section-icon">🏦</div>
+                  <span>Select Local Bank</span>
+                </div>
+              </div>
+
+              <div className="vnpay-card">
+                <div className="vnpay-bank-search">
+                  <input
+                    className="vnpay-bank-search-input"
+                    placeholder="Find your bank..."
+                  />
+                </div>
+                <div className="vnpay-bank-grid">
+                  {BANKS.map((bank) => (
+                    <button
+                      key={bank}
+                      type="button"
+                      onClick={() => setSelectedBank(bank)}
+                      className={
+                        'vnpay-bank-button' +
+                        (selectedBank === bank ? ' vnpay-bank-button-active' : '')
+                      }
+                    >
+                      {bank}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* How to pay */}
+            <section className="vnpay-section">
+              <div className="vnpay-section-header">
+                <div className="vnpay-section-title">
+                  <div className="vnpay-section-icon">📱</div>
+                  <span>How to pay</span>
+                </div>
+              </div>
+
+              <div className="vnpay-card">
+                <div className="vnpay-steps">
+                  <div className="vnpay-step">
+                    <div className="vnpay-step-index">1</div>
+                    <div>
+                      <div className="vnpay-step-content-title">
+                        Open your Mobile Banking app
+                      </div>
+                      <div className="vnpay-step-content-text">
+                        Open your Mobile Banking app or e-wallet on your smartphone.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="vnpay-step">
+                    <div className="vnpay-step-index">2</div>
+                    <div>
+                      <div className="vnpay-step-content-title">
+                        Choose QR Pay and scan
+                      </div>
+                      <div className="vnpay-step-content-text">
+                        Choose the QR Pay function and scan the QR code displayed on
+                        the right.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="vnpay-step">
+                    <div className="vnpay-step-index">3</div>
+                    <div>
+                      <div className="vnpay-step-content-title">
+                        Confirm transaction details
+                      </div>
+                      <div className="vnpay-step-content-text">
+                        Check the details and confirm the transaction. Your order
+                        will be updated automatically.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          {/* Right column */}
+          <aside className="vnpay-payment-panel">
+            <div className="vnpay-payment-header">
+              <div className="vnpay-vnpay-logo">VNPay</div>
+            </div>
+
+            <div className="vnpay-session-pill">
+              <div className="vnpay-session-pill-inner">
+                <span className="vnpay-session-dot" />
+                <span>Session expires in {formatTime(remaining)}</span>
+              </div>
+            </div>
+
+            <div className="vnpay-payment-title">Scan QR code to pay</div>
+
+            <div className="vnpay-qr-wrapper">
+              <div className="vnpay-qr-inner">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=BASAUYCLE-VNPay-Demo"
+                  alt="VNPay QR code"
+                />
+              </div>
+            </div>
+
+            <div className="vnpay-total-row">
+              <span className="vnpay-total-label">Total Amount</span>
+              <span className="vnpay-total-amount">{formattedTotal}</span>
+            </div>
+
+            <button
+              type="button"
+              className="vnpay-primary-button"
+              onClick={handlePaid}
+            >
+              <span className="vnpay-primary-button-icon">✓</span>
+              <span>I Have Paid</span>
+            </button>
+
+            <button
+              type="button"
+              className="vnpay-secondary-button"
+              onClick={handleCancel}
+            >
+              Cancel Transaction
+            </button>
+
+            <div className="vnpay-badges-row">
+              <div className="vnpay-badge">
+                <span className="vnpay-badge-dot" />
+                <span>SSL Encrypted</span>
+              </div>
+              <div className="vnpay-badge">
+                <span className="vnpay-badge-dot" />
+                <span>Verified Merchant</span>
+              </div>
+            </div>
+
+            <div className="vnpay-support">
+              Having trouble?{' '}
+              <a href="#" onClick={(e) => e.preventDefault()}>
+                Contact Support ↗
+              </a>
+            </div>
+          </aside>
+        </section>
+
+        {/* Footer */}
+        <footer className="vnpay-footer">
+          <div className="vnpay-footer-top">
+            <div>
+              <Link to="/" className="vnpay-footer-logo">
+                <img src={bikeLogo} alt="BASAUYCLE Logo" className="vnpay-logo-icon" />
+                <div className="vnpay-logo-text-main">BASAUYCLE</div>
+              </Link>
+              <div>
+                Premium marketplace for serious cyclists. Buy and sell with
+                confidence.
+              </div>
+            </div>
+
+            <div>
+              <div className="vnpay-footer-title">Company</div>
+              <div className="vnpay-footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Sustainability</a>
+              </div>
+            </div>
+
+            <div>
+              <div className="vnpay-footer-title">Resources</div>
+              <div className="vnpay-footer-links">
+                <a href="#">Buyer Protection</a>
+                <a href="#">Seller Guide</a>
+                <a href="#">Trust &amp; Safety</a>
+              </div>
+            </div>
+
+            <div>
+              <div className="vnpay-footer-title">Subscribe</div>
+              <div className="vnpay-subscribe">
+                <div>Get the latest deals and updates.</div>
+                <div className="vnpay-subscribe-input-row">
+                  <input placeholder="Email" />
+                  <button type="button">Join</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="vnpay-footer-bottom">
+            <div>© 2026 BASAUYCLE. All rights reserved.</div>
+            <div className="vnpay-footer-bottom-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Cookie Settings</a>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  )
+}
+
