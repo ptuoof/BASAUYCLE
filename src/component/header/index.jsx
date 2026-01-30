@@ -77,39 +77,26 @@ const SearchWrapper = styled(Box)(() => ({
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: 999,
+  borderRadius: 12,
   backgroundColor: "#f3f4f6",
   padding: "8px 14px",
+  height: 40,
   maxWidth: 360,
   width: "100%",
   display: "flex",
   alignItems: "center",
-  gap: theme.spacing(1),
+  gap: theme.spacing(1.25),
 }));
 
-const SearchIconWrapper = styled("div")({
-  width: 16,
-  height: 16,
-  borderRadius: "50%",
-  border: "2px solid #9ca3af",
-  position: "relative",
-  "&::after": {
-    content: '""',
-    position: "absolute",
-    width: 8,
-    height: 2,
-    borderRadius: 999,
-    background: "#9ca3af",
-    transform: "rotate(45deg)",
-    bottom: -4,
-    right: -6,
-  },
+const SearchIcon = styled(SearchOutlined)({
+  fontSize: 18,
+  color: "#9ca3af",
 });
 
 const StyledInputBase = styled(InputBase)({
   flex: 1,
-  fontSize: 13,
-  color: "#111827",
+  fontSize: 14,
+  color: "#6b7280",
   "& input": {
     padding: 0,
     "&::placeholder": {
@@ -257,7 +244,7 @@ export default function Header({
         {showSearch && (
           <SearchWrapper>
             <Search>
-              <SearchIconWrapper />
+              <SearchIcon />
               <StyledInputBase placeholder="Search bikes..." />
             </Search>
           </SearchWrapper>

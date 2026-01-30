@@ -62,8 +62,8 @@
     /* không cho xuống dòng */
 }
 
-/* Active */
-.step-tab-active .step-tab-bar {
+/* Active - removed, only show color when completed */
+/* .step-tab-active .step-tab-bar {
     background: #1ABC9C;
 }
 
@@ -74,9 +74,9 @@
 
 .step-tab-active .step-tab-title {
     font-weight: 600;
-}
+} */
 
-/* Completed */
+/* Completed - show green */
 .step-tab-completed .step-tab-bar {
     background: #1ABC9C;
 }
@@ -84,19 +84,16 @@
 .step-tab-completed .step-tab-icon,
 .step-tab-completed .step-tab-title {
     color: #1ABC9C;
+    font-weight: 600;
 }
 
 /* Hover */
-.step-tab:hover .step-tab-title {
-    color: #6b7280;
+.step-tab:hover .step-tab-bar {
+    background: #1ABC9C;
 }
 
+.step-tab:hover .step-tab-title,
 .step-tab:hover .step-tab-icon {
-    color: #6b7280;
-}
-
-.step-tab:hover.step-tab-active .step-tab-title,
-.step-tab:hover.step-tab-active .step-tab-icon {
     color: #1ABC9C;
 }
 

@@ -40,8 +40,20 @@
     transition: color 0.3s ease;
 }
 
-.post-breadcrumb .ant-breadcrumb-link:hover {
+.post-breadcrumb li:first-child .ant-breadcrumb-link:hover,
+.post-breadcrumb li:first-child .ant-breadcrumb-link:hover span {
+    color: var(--text-gray);
+}
+
+.post-breadcrumb li:not(:first-child) .ant-breadcrumb-link:hover,
+.post-breadcrumb li:not(:first-child) .ant-breadcrumb-link:hover span {
     color: var(--primary-color);
+}
+
+.post-breadcrumb li:last-child .ant-breadcrumb-link,
+.post-breadcrumb li:last-child .ant-breadcrumb-link span {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 /* Page Header */
@@ -81,6 +93,8 @@
     overflow: visible;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.3s ease;
+    scroll-margin-top: 120px;
+    /* Offset for header and step progress */
 }
 
 .form-section:hover {
@@ -164,6 +178,10 @@
 .field-input,
 .field-select {
     width: 100%;
+}
+
+.price-field .field-input {
+    max-width: calc((100% - 1.25rem) / 2);
 }
 
 .field-input .ant-input,
@@ -256,18 +274,43 @@
 }
 
 /* Upload Dragger */
+/* Upload Dragger - FIX overflow/duplicate border */
 .upload-dragger {
+    /* This is usually the wrapper. Keep it clean. */
+    width: 100%;
+}
+
+/* Style the REAL drag area rendered by AntD */
+.upload-dragger .ant-upload.ant-upload-drag {
+    box-sizing: border-box !important;
+    position: relative !important;
+    overflow: hidden !important;
+    /* ✅ clip any pseudo/outline leaking */
     border: 2px dashed var(--border-color) !important;
     border-radius: 12px !important;
     background: #fafafa !important;
     padding: 2rem 1rem !important;
-    transition: all 0.3s ease;
 }
 
-.upload-dragger:hover {
+/* Hover state */
+.upload-dragger .ant-upload.ant-upload-drag:hover {
     border-color: var(--primary-color) !important;
     background: var(--primary-light) !important;
 }
+
+/* In case AntD theme adds pseudo elements */
+.upload-dragger .ant-upload.ant-upload-drag::before,
+.upload-dragger .ant-upload.ant-upload-drag::after {
+    content: none !important;
+}
+
+/* Optional: avoid focus outline artifacts on some browsers */
+.upload-dragger .ant-upload.ant-upload-drag:focus,
+.upload-dragger .ant-upload.ant-upload-drag:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 
 .upload-icon {
     margin-bottom: 0.75rem;
@@ -347,18 +390,23 @@
 }
 
 .action-btn-draft {
-    height: 44px;
-    padding: 0 1.5rem;
+    height: 40px;
+    padding: 0;
     border-radius: 8px;
     font-weight: 600;
-    border: 1.5px solid var(--border-color);
-    color: var(--text-dark);
-    transition: all 0.3s ease;
+    border: none;
+    background: transparent;
+    color: var(--text-gray);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: none;
+    transition: color 0.2s ease;
 }
 
 .action-btn-draft:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    color: var(--text-dark);
+    background: transparent;
 }
 
 .action-btn-group {
@@ -446,6 +494,11 @@
     .section-content {
         padding: 1.5rem;
     }
+
+    .price-field .field-input {
+        max-width: 100%;
+    }
+
 
     .form-actions {
         flex-direction: column;
