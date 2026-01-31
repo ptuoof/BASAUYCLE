@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Form, Input, Checkbox } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import bikeLogo from "../../assets/bike-logo.png";
+import { useAuth } from "../../contexts/AuthContext";
 import "./login.css";
 
 export default function Login() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
 
   const onFinish = (values) => {
-    console.log("Login values:", values);
+    login({ username: values.username, email: values.username });
+    const from = location.state?.from?.pathname || "/";
+    navigate(from, { replace: true });
   };
 
   return (
@@ -20,7 +26,7 @@ export default function Login() {
 
       <div className="auth-page__form-wrap">
         <div className="auth-card">
-          <h1 className="auth-card__title">Đăng nhập</h1>
+          <h1 className="auth-card__title">Sign In</h1>
 
           <Form
             form={form}
@@ -33,11 +39,11 @@ export default function Login() {
             <Form.Item
               name="username"
               rules={[
-                { required: true, message: "Vui lòng nhập tên đăng nhập!" },
+                { required: true, message: "Please enter your username!" },
               ]}
             >
               <Input
-                placeholder="TÊN NGƯỜI DÙNG"
+                placeholder="USERNAME"
                 className="auth-form__input"
                 size="large"
               />
@@ -45,10 +51,10 @@ export default function Login() {
 
             <Form.Item
               name="password"
-              rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+              rules={[{ required: true, message: "Please enter your password!" }]}
             >
               <Input.Password
-                placeholder="MẬT KHẨU"
+                placeholder="PASSWORD"
                 className="auth-form__input"
                 size="large"
               />
@@ -59,14 +65,14 @@ export default function Login() {
               valuePropName="checked"
               className="auth-form__remember"
             >
-              <Checkbox>Lưu đăng nhập</Checkbox>
+              <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
             <Form.Item className="auth-form__submit">
               <button
                 type="submit"
                 className="auth-card__btn-submit"
-                aria-label="Đăng nhập"
+                aria-label="Sign In"
               >
                 <ArrowRightOutlined className="auth-card__btn-icon" />
               </button>
@@ -75,26 +81,26 @@ export default function Login() {
 
           <div className="auth-card__links">
             <Link to="/forgot-password" className="auth-card__link">
-              KHÔNG THỂ ĐĂNG NHẬP?
+              CAN'T SIGN IN?
             </Link>
             <Link
               to="/register"
               className="auth-card__link auth-card__link--primary"
             >
-              TẠO TÀI KHOẢN
+              CREATE ACCOUNT
             </Link>
           </div>
         </div>
       </div>
 
       <footer className="auth-page__footer">
-        <Link to="#">Hỗ trợ</Link>
+        <Link to="#">Support</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Chính sách quyền riêng tư</Link>
+        <Link to="#">Privacy Policy</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Điều khoản sử dụng</Link>
+        <Link to="#">Terms of Service</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Tùy chọn cookies</Link>
+        <Link to="#">Cookie Settings</Link>
         <span className="auth-page__footer-sep">·</span>
         <span className="auth-page__footer-lang">VN</span>
       </footer>

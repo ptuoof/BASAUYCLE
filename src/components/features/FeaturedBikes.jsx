@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Container,
@@ -207,7 +208,7 @@ export default function FeaturedBikes() {
               The best deals curated by our experts this week.
             </SectionDescription>
           </Box>
-          <ViewGalleryLink href="#">
+          <ViewGalleryLink component={Link} to="/marketplace">
             View Gallery
             <ArrowRightOutlined />
           </ViewGalleryLink>

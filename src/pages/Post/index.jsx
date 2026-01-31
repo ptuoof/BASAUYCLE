@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Breadcrumb, Input, Select, Button, Upload } from 'antd';
+import { useState, useEffect } from "react";
+import { Breadcrumb, Input, Select, Button, Upload } from "antd";
 import {
   InfoCircleOutlined,
   SettingOutlined,
@@ -7,11 +7,11 @@ import {
   CreditCardOutlined,
   InboxOutlined,
   ArrowLeftOutlined,
-} from '@ant-design/icons';
-import Header from '../../component/header';
-import Footer from '../../component/footer';
-import StepProgress from '../../component/StepProgress';
-import './index.css';
+} from "@ant-design/icons";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import StepProgress from "../../components/StepProgress";
+import "./index.css";
 
 const { Dragger } = Upload;
 
@@ -20,16 +20,21 @@ export default function PostBike() {
   const [completedSections, setCompletedSections] = useState([]);
 
   // Form field states
-  const [bikeName, setBikeName] = useState('');
+  const [bikeName, setBikeName] = useState("");
   const [brand, setBrand] = useState(undefined);
   const [category, setCategory] = useState(undefined);
-  const [frameSize, setFrameSize] = useState('');
+  const [frameSize, setFrameSize] = useState("");
   const [frameMaterial, setFrameMaterial] = useState(undefined);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
 
   // Section IDs for scroll detection
-  const sectionIds = ['basic-info', 'technical-specs', 'photos-videos', 'pricing'];
+  const sectionIds = [
+    "basic-info",
+    "technical-specs",
+    "photos-videos",
+    "pricing",
+  ];
 
   // Check section completion and update completedSections
   useEffect(() => {
@@ -56,13 +61,21 @@ export default function PostBike() {
     }
 
     setCompletedSections(completed);
-  }, [bikeName, brand, category, frameSize, frameMaterial, uploadedFiles, price]);
+  }, [
+    bikeName,
+    brand,
+    category,
+    frameSize,
+    frameMaterial,
+    uploadedFiles,
+    price,
+  ]);
 
   // Scroll detection
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -70% 0px',
+      rootMargin: "-20% 0px -70% 0px",
       threshold: 0,
     };
 
@@ -75,7 +88,10 @@ export default function PostBike() {
       });
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
 
     // Observe all sections
     sectionIds.forEach((id) => {
@@ -92,21 +108,22 @@ export default function PostBike() {
     const element = document.getElementById(sectionId);
     if (element) {
       const yOffset = -100; // Offset for header
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   const uploadProps = {
-    name: 'file',
+    name: "file",
     multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onChange(info) {
       const { status } = info.file;
-      if (status === 'done') {
+      if (status === "done") {
         console.log(`${info.file.name} file uploaded successfully.`);
         setUploadedFiles(info.fileList);
-      } else if (status === 'error') {
+      } else if (status === "error") {
         console.log(`${info.file.name} file upload failed.`);
       }
     },
@@ -117,20 +134,22 @@ export default function PostBike() {
 
   return (
     <div className="post-bike-container">
-      <Header showSearch={true} showAvatar={true} showSellButton={false} showLogin={true} />
+      <Header />
 
       <main className="post-main-content">
         {/* Breadcrumb */}
         <Breadcrumb
           className="post-breadcrumb"
           separator=">"
-          items={[{ title: 'Marketplace' }, { title: 'Sell Your Bike' }]}
+          items={[{ title: "Marketplace" }, { title: "Sell Your Bike" }]}
         />
 
         {/* Page Header */}
         <div className="post-header">
           <h1 className="post-title">Post a Bike for Sale</h1>
-          <p className="post-subtitle">Reach over 50,000 cycling enthusiasts worldwide</p>
+          <p className="post-subtitle">
+            Reach over 50,000 cycling enthusiasts worldwide
+          </p>
         </div>
 
         {/* Step Progress */}
@@ -171,11 +190,11 @@ export default function PostBike() {
                     value={brand}
                     onChange={(value) => setBrand(value)}
                     options={[
-                      { value: 'specialized', label: 'Specialized' },
-                      { value: 'trek', label: 'Trek' },
-                      { value: 'giant', label: 'Giant' },
-                      { value: 'cannondale', label: 'Cannondale' },
-                      { value: 'bianchi', label: 'Bianchi' },
+                      { value: "specialized", label: "Specialized" },
+                      { value: "trek", label: "Trek" },
+                      { value: "giant", label: "Giant" },
+                      { value: "cannondale", label: "Cannondale" },
+                      { value: "bianchi", label: "Bianchi" },
                     ]}
                   />
                 </div>
@@ -189,11 +208,11 @@ export default function PostBike() {
                     value={category}
                     onChange={(value) => setCategory(value)}
                     options={[
-                      { value: 'road', label: 'Road Bike' },
-                      { value: 'mountain', label: 'Mountain Bike' },
-                      { value: 'hybrid', label: 'Hybrid' },
-                      { value: 'electric', label: 'Electric' },
-                      { value: 'folding', label: 'Folding' },
+                      { value: "road", label: "Road Bike" },
+                      { value: "mountain", label: "Mountain Bike" },
+                      { value: "hybrid", label: "Hybrid" },
+                      { value: "electric", label: "Electric" },
+                      { value: "folding", label: "Folding" },
                     ]}
                   />
                 </div>
@@ -230,10 +249,10 @@ export default function PostBike() {
                     value={frameMaterial}
                     onChange={(value) => setFrameMaterial(value)}
                     options={[
-                      { value: 'carbon', label: 'Carbon Fiber' },
-                      { value: 'aluminum', label: 'Aluminum' },
-                      { value: 'steel', label: 'Steel' },
-                      { value: 'titanium', label: 'Titanium' },
+                      { value: "carbon", label: "Carbon Fiber" },
+                      { value: "aluminum", label: "Aluminum" },
+                      { value: "steel", label: "Steel" },
+                      { value: "titanium", label: "Titanium" },
                     ]}
                   />
                 </div>
@@ -252,10 +271,12 @@ export default function PostBike() {
 
               <Dragger {...uploadProps} className="upload-dragger">
                 <p className="upload-icon">
-                  <InboxOutlined style={{ fontSize: 48, color: '#1ABC9C' }} />
+                  <InboxOutlined style={{ fontSize: 48, color: "#1ABC9C" }} />
                 </p>
                 <p className="upload-text">Drag & drop your bike photos here</p>
-                <p className="upload-hint">Supports High-Quality JPG, PNG, and MP4 (Max 50MB)</p>
+                <p className="upload-hint">
+                  Supports High-Quality JPG, PNG, and MP4 (Max 50MB)
+                </p>
                 <Button type="primary" className="upload-browse-btn">
                   Browse Files
                 </Button>
@@ -287,7 +308,12 @@ export default function PostBike() {
 
           {/* Form Actions */}
           <div className="form-actions">
-            <Button size="large" className="action-btn-draft" type="text" icon={<ArrowLeftOutlined />}>
+            <Button
+              size="large"
+              className="action-btn-draft"
+              type="text"
+              icon={<ArrowLeftOutlined />}
+            >
               Save as Draft
             </Button>
 
@@ -305,16 +331,16 @@ export default function PostBike() {
 
       <Footer
         exploreLinks={[
-          { label: 'Featured Road Bikes', href: '#' },
-          { label: 'New MTB Arrivals', href: '#' },
-          { label: 'Certified Pre-owned', href: '#' },
-          { label: 'Popular Categories', href: '#' },
+          { label: "Featured Road Bikes", href: "#" },
+          { label: "New MTB Arrivals", href: "#" },
+          { label: "Certified Pre-owned", href: "#" },
+          { label: "Popular Categories", href: "#" },
         ]}
         supportLinks={[
-          { label: 'Help Center', href: '#' },
-          { label: 'Safety Guidelines', href: '#' },
-          { label: 'Listing Fees', href: '#' },
-          { label: 'Contact Us', href: '#' },
+          { label: "Help Center", href: "#" },
+          { label: "Safety Guidelines", href: "#" },
+          { label: "Listing Fees", href: "#" },
+          { label: "Contact Us", href: "#" },
         ]}
       />
     </div>

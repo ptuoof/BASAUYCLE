@@ -10,7 +10,7 @@ export default function ForgotPassword() {
 
   const onFinish = (values) => {
     console.log("Forgot password:", values);
-    // TODO: gọi API gửi link đặt lại mật khẩu
+    // TODO: call API to send password reset link
   };
 
   return (
@@ -22,9 +22,9 @@ export default function ForgotPassword() {
 
       <div className="auth-page__form-wrap">
         <div className="auth-card">
-          <h1 className="auth-card__title">Quên mật khẩu</h1>
+          <h1 className="auth-card__title">Forgot Password</h1>
           <p className="auth-card__subtitle">
-            Nhập email đăng ký để nhận link đặt lại mật khẩu
+            Enter your registered email to receive a password reset link
           </p>
 
           <Form
@@ -38,8 +38,8 @@ export default function ForgotPassword() {
             <Form.Item
               name="email"
               rules={[
-                { required: true, message: "Vui lòng nhập email!" },
-                { type: "email", message: "Vui lòng nhập email hợp lệ!" },
+                { required: true, message: "Please enter your email!" },
+                { type: "email", message: "Please enter a valid email!" },
               ]}
             >
               <Input
@@ -53,7 +53,7 @@ export default function ForgotPassword() {
               <button
                 type="submit"
                 className="auth-card__btn-submit"
-                aria-label="Gửi link đặt lại mật khẩu"
+                aria-label="Send reset link"
               >
                 <ArrowRightOutlined className="auth-card__btn-icon" />
               </button>
@@ -65,20 +65,20 @@ export default function ForgotPassword() {
               to="/login"
               className="auth-card__link auth-card__link--primary"
             >
-              Quay lại đăng nhập
+              Back to Sign In
             </Link>
           </div>
         </div>
       </div>
 
       <footer className="auth-page__footer">
-        <Link to="#">Hỗ trợ</Link>
+        <Link to="#">Support</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Chính sách quyền riêng tư</Link>
+        <Link to="#">Privacy Policy</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Điều khoản sử dụng</Link>
+        <Link to="#">Terms of Service</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Tùy chọn cookies</Link>
+        <Link to="#">Cookie Settings</Link>
         <span className="auth-page__footer-sep">·</span>
         <span className="auth-page__footer-lang">VN</span>
       </footer>

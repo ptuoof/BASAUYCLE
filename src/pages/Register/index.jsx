@@ -21,8 +21,8 @@ export default function Register() {
 
       <div className="auth-page__form-wrap">
         <div className="auth-card auth-card--register">
-          <h1 className="auth-card__title">Đăng ký</h1>
-          <p className="auth-card__subtitle">Tạo tài khoản để mua bán xe đạp</p>
+          <h1 className="auth-card__title">Register</h1>
+          <p className="auth-card__subtitle">Create an account to buy and sell bicycles</p>
 
           <Form
             form={form}
@@ -35,11 +35,11 @@ export default function Register() {
             <Form.Item
               name="username"
               rules={[
-                { required: true, message: "Vui lòng nhập tên đăng nhập!" },
+                { required: true, message: "Please enter your username!" },
               ]}
             >
               <Input
-                placeholder="TÊN NGƯỜI DÙNG"
+                placeholder="USERNAME"
                 className="auth-form__input"
                 size="large"
               />
@@ -48,8 +48,8 @@ export default function Register() {
             <Form.Item
               name="email"
               rules={[
-                { required: true, message: "Vui lòng nhập email!" },
-                { type: "email", message: "Vui lòng nhập email hợp lệ!" },
+                { required: true, message: "Please enter your email!" },
+                { type: "email", message: "Please enter a valid email!" },
               ]}
             >
               <Input
@@ -62,12 +62,12 @@ export default function Register() {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: "Vui lòng nhập mật khẩu!" },
-                { min: 8, message: "Mật khẩu tối thiểu 8 ký tự!" },
+                { required: true, message: "Please enter your password!" },
+                { min: 8, message: "Password must be at least 8 characters!" },
               ]}
             >
               <Input.Password
-                placeholder="MẬT KHẨU"
+                placeholder="PASSWORD"
                 className="auth-form__input"
                 size="large"
               />
@@ -77,19 +77,19 @@ export default function Register() {
               name="confirmPassword"
               dependencies={["password"]}
               rules={[
-                { required: true, message: "Vui lòng xác nhận mật khẩu!" },
+                { required: true, message: "Please confirm your password!" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (!value || getFieldValue("password") === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error("Mật khẩu không khớp!"));
+                    return Promise.reject(new Error("Passwords do not match!"));
                   },
                 }),
               ]}
             >
               <Input.Password
-                placeholder="XÁC NHẬN MẬT KHẨU"
+                placeholder="CONFIRM PASSWORD"
                 className="auth-form__input"
                 size="large"
               />
@@ -103,19 +103,19 @@ export default function Register() {
                   validator: (_, value) =>
                     value
                       ? Promise.resolve()
-                      : Promise.reject(new Error("Bạn cần đồng ý điều khoản!")),
+                      : Promise.reject(new Error("You must agree to the terms!")),
                 },
               ]}
               className="auth-form__remember"
             >
               <Checkbox>
-                Tôi đồng ý với{" "}
+                I agree to the{" "}
                 <Link to="#" className="auth-card__link-inline">
-                  Điều khoản sử dụng
+                  Terms of Service
                 </Link>{" "}
-                và{" "}
+                and{" "}
                 <Link to="#" className="auth-card__link-inline">
-                  Chính sách quyền riêng tư
+                  Privacy Policy
                 </Link>
               </Checkbox>
             </Form.Item>
@@ -124,7 +124,7 @@ export default function Register() {
               <button
                 type="submit"
                 className="auth-card__btn-submit"
-                aria-label="Đăng ký"
+                aria-label="Register"
               >
                 <ArrowRightOutlined className="auth-card__btn-icon" />
               </button>
@@ -133,12 +133,12 @@ export default function Register() {
 
           <div className="auth-card__links">
             <span className="auth-card__links-text">
-              Đã có tài khoản?{" "}
+              Already have an account?{" "}
               <Link
                 to="/login"
                 className="auth-card__link auth-card__link--primary"
               >
-                Đăng nhập
+                Sign In
               </Link>
             </span>
           </div>
@@ -146,13 +146,13 @@ export default function Register() {
       </div>
 
       <footer className="auth-page__footer">
-        <Link to="#">Hỗ trợ</Link>
+        <Link to="#">Support</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Chính sách quyền riêng tư</Link>
+        <Link to="#">Privacy Policy</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Điều khoản sử dụng</Link>
+        <Link to="#">Terms of Service</Link>
         <span className="auth-page__footer-sep">·</span>
-        <Link to="#">Tùy chọn cookies</Link>
+        <Link to="#">Cookie Settings</Link>
         <span className="auth-page__footer-sep">·</span>
         <span className="auth-page__footer-lang">VN</span>
       </footer>

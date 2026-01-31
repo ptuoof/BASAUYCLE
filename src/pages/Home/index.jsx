@@ -1,32 +1,19 @@
 import { Box } from "@mui/material";
-import Header from "../../component/header";
-import Hero from "../../component/hero";
-import CategoryFilter from "../../component/category/CategoryFilter";
-import FeaturedBikes from "../../component/features/FeaturedBikes";
-import Features from "../../component/features/Features";
-import CTA from "../../component/category/CTA";
-import Footer from "../../component/footer";
+import Header from "../../components/header";
+import Hero from "../../components/hero";
+import CategoryFilter from "../../components/category/CategoryFilter";
+import FeaturedBikes from "../../components/features/FeaturedBikes";
+import Features from "../../components/features/Features";
+import CTA from "../../components/category/CTA";
+import Footer from "../../components/footer";
 
 export default function Home() {
-  const navLinks = [
-    { label: "Browse", href: "#" },
-    { label: "Inspections", href: "#" },
-    { label: "How It Works", href: "#" },
-    { label: "About", href: "#" },
-  ];
-
   return (
     <Box
       component="main"
       sx={{ minHeight: "100vh", backgroundColor: "#f9fafa" }}
     >
-      <Header
-        navLinks={navLinks}
-        showSearch={false}
-        showAvatar={true}
-        showSellButton={true}
-        showLogin={true}
-      />
+      <Header showSearch={false} />
       <Hero />
       <CategoryFilter />
       <FeaturedBikes />

@@ -1,94 +1,83 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './index.css'
-import bikeImage from '../../assets/bike-tarmac-sl7.png'
-import Header from '../../component/header'
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import "./index.css";
+import bikeImage from "../../assets/bike-tarmac-sl7.png";
+import bikeLogo from "../../assets/bike-logo.png";
+import Header from "../../components/header";
 
 const BANKS = [
-  'VIETCOMBANK',
-  'TECHCOMBANK',
-  'BIDV',
-  'AGRIBANK',
-  'VPBANK',
-  'SACOMBANK',
-  'MB BANK',
-  'ACB',
-  'TPBANK',
-  'VIB',
-]
+  "VIETCOMBANK",
+  "TECHCOMBANK",
+  "BIDV",
+  "AGRIBANK",
+  "VPBANK",
+  "SACOMBANK",
+  "MB BANK",
+  "ACB",
+  "TPBANK",
+  "VIB",
+];
 
 const ORDER_DATA = {
-  orderId: 'VN882910',
-  bikeName: 'Specialized S-Works Tarmac SL7',
-  seller: 'Ho Chi Minh City Premium Bikes',
+  orderId: "VN882910",
+  bikeName: "Specialized S-Works Tarmac SL7",
+  seller: "Ho Chi Minh City Premium Bikes",
   price: 125000000,
-}
+};
 
 function formatCurrencyVND(amount) {
-  if (typeof amount !== 'number') return ''
-  return amount.toLocaleString('vi-VN') + ' ₫'
+  if (typeof amount !== "number") return "";
+  return amount.toLocaleString("vi-VN") + " ₫";
 }
 
 function formatTime(seconds) {
-  const m = Math.floor(seconds / 60)
-  const s = seconds % 60
-  const mm = String(m).padStart(2, '0')
-  const ss = String(s).padStart(2, '0')
-  return `${mm}:${ss}`
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  const mm = String(m).padStart(2, "0");
+  const ss = String(s).padStart(2, "0");
+  return `${mm}:${ss}`;
 }
 
 export default function VNPayPayment() {
-  const [selectedBank, setSelectedBank] = useState(BANKS[0])
-  const [remaining, setRemaining] = useState(9 * 60 + 59) // 09:59
+  const [selectedBank, setSelectedBank] = useState(BANKS[0]);
+  const [remaining, setRemaining] = useState(9 * 60 + 59); // 09:59
 
   useEffect(() => {
-    if (remaining <= 0) return
+    if (remaining <= 0) return;
     const timer = setInterval(() => {
-      setRemaining((prev) => (prev > 0 ? prev - 1 : 0))
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [remaining])
+      setRemaining((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [remaining]);
 
-  const formattedTotal = useMemo(
-    () => formatCurrencyVND(ORDER_DATA.price),
-    [],
-  )
+  const formattedTotal = useMemo(() => formatCurrencyVND(ORDER_DATA.price), []);
 
   const handlePaid = () => {
-    window.alert('Payment submitted')
-  }
+    window.alert("Payment submitted");
+  };
 
   const handleCancel = () => {
-    const ok = window.confirm('Are you sure you want to cancel this transaction?')
+    const ok = window.confirm(
+      "Are you sure you want to cancel this transaction?",
+    );
     if (ok) {
-      window.alert('Transaction cancelled')
+      window.alert("Transaction cancelled");
     }
-  }
+  };
 
   return (
     <div className="vnpay-page">
-      <Header
-        navLinks={[
-          { label: 'Browse', href: '#' },
-          { label: 'Inspections', href: '#' },
-          { label: 'How It Works', href: '#' },
-          { label: 'About', href: '#' },
-        ]}
-        showSearch={true}
-        showAvatar={true}
-        showSellButton={true}
-        showLogin={true}
-      />
+      <Header />
       <main className="vnpay-shell vnpay-main">
         <div className="vnpay-breadcrumb">
-          Home <span>&gt;</span> Checkout <span>&gt;</span>{' '}
+          Home <span>&gt;</span> Checkout <span>&gt;</span>{" "}
           <span className="vnpay-breadcrumb-current">VN Pay Payment</span>
         </div>
 
         <h1 className="vnpay-title">VN Pay Payment Gateway</h1>
         <p className="vnpay-subtitle">
-          Complete your transaction securely using Vietnam&apos;s leading payment
-          network.
+          Complete your transaction securely using Vietnam&apos;s leading
+          payment network.
         </p>
 
         <section className="vnpay-layout">
@@ -157,8 +146,10 @@ export default function VNPayPayment() {
                       type="button"
                       onClick={() => setSelectedBank(bank)}
                       className={
-                        'vnpay-bank-button' +
-                        (selectedBank === bank ? ' vnpay-bank-button-active' : '')
+                        "vnpay-bank-button" +
+                        (selectedBank === bank
+                          ? " vnpay-bank-button-active"
+                          : "")
                       }
                     >
                       {bank}
@@ -186,7 +177,8 @@ export default function VNPayPayment() {
                         Open your Mobile Banking app
                       </div>
                       <div className="vnpay-step-content-text">
-                        Open your Mobile Banking app or e-wallet on your smartphone.
+                        Open your Mobile Banking app or e-wallet on your
+                        smartphone.
                       </div>
                     </div>
                   </div>
@@ -198,8 +190,8 @@ export default function VNPayPayment() {
                         Choose QR Pay and scan
                       </div>
                       <div className="vnpay-step-content-text">
-                        Choose the QR Pay function and scan the QR code displayed on
-                        the right.
+                        Choose the QR Pay function and scan the QR code
+                        displayed on the right.
                       </div>
                     </div>
                   </div>
@@ -211,8 +203,8 @@ export default function VNPayPayment() {
                         Confirm transaction details
                       </div>
                       <div className="vnpay-step-content-text">
-                        Check the details and confirm the transaction. Your order
-                        will be updated automatically.
+                        Check the details and confirm the transaction. Your
+                        order will be updated automatically.
                       </div>
                     </div>
                   </div>
@@ -279,7 +271,7 @@ export default function VNPayPayment() {
             </div>
 
             <div className="vnpay-support">
-              Having trouble?{' '}
+              Having trouble?{" "}
               <a href="#" onClick={(e) => e.preventDefault()}>
                 Contact Support ↗
               </a>
@@ -292,7 +284,11 @@ export default function VNPayPayment() {
           <div className="vnpay-footer-top">
             <div>
               <Link to="/" className="vnpay-footer-logo">
-                <img src={bikeLogo} alt="BASAUYCLE Logo" className="vnpay-logo-icon" />
+                <img
+                  src={bikeLogo}
+                  alt="BASAUYCLE Logo"
+                  className="vnpay-logo-icon"
+                />
                 <div className="vnpay-logo-text-main">BASAUYCLE</div>
               </Link>
               <div>
@@ -342,6 +338,5 @@ export default function VNPayPayment() {
         </footer>
       </main>
     </div>
-  )
+  );
 }
-

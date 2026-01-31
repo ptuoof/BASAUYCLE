@@ -1,18 +1,37 @@
+import { Link } from "react-router-dom";
 import { Card, Tag, Button, Space, Typography } from "antd";
 import {
   HeartOutlined,
+  HeartFilled,
   AppstoreOutlined,
   SettingOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import "./index.css";
+import { useWishlist } from "../../contexts/WishlistContext";
 
 export default function BikeCard({ bike }) {
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const inWishlist = isInWishlist(bike.id);
+
+  const handleFavoriteClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inWishlist) {
+      removeFromWishlist(bike.id);
+    } else {
+      addToWishlist(bike);
+    }
+  };
+
   const getBadgeStyle = (badge) => {
     const styles = {
       "NEW ARRIVAL": { backgroundColor: "#FAD02E", color: "#0f172a" },
+      NEW: { backgroundColor: "#00a99d", color: "#fff" },
       INSPECTED: { backgroundColor: "#00a99d", color: "#fff" },
       "TOP RATED": { backgroundColor: "#00a99d", color: "#fff" },
+      VERIFIED: { backgroundColor: "#FAD02E", color: "#0f172a" },
+      CERTIFIED: { backgroundColor: "#00a99d", color: "#fff" },
     };
     return styles[badge] || { backgroundColor: "#1a1a1a", color: "#fff" };
   };
@@ -65,9 +84,12 @@ export default function BikeCard({ bike }) {
           )}
           <Button
             type="text"
-            icon={<HeartOutlined />}
-            className="bike-card-favorite"
-            aria-label="Add to favorites"
+            icon={inWishlist ? <HeartFilled /> : <HeartOutlined />}
+            className={`bike-card-favorite ${inWishlist ? "in-wishlist" : ""}`}
+            aria-label={
+              inWishlist ? "Remove from favorites" : "Add to favorites"
+            }
+            onClick={handleFavoriteClick}
             style={{
               position: "absolute",
               top: 16,
@@ -120,6 +142,24 @@ export default function BikeCard({ bike }) {
           </Space>
         )}
       </Space>
+      <Link
+        to={`/product/${bike.id}`}
+        style={{ textDecoration: "none", display: "block", marginTop: 16 }}
+      >
+        <Button
+          type="primary"
+          block
+          className="bike-card-view-details"
+          style={{
+            backgroundColor: "#00ccad",
+            color: "#0f172a",
+            fontWeight: 700,
+            border: "none",
+          }}
+        >
+          View Details
+        </Button>
+      </Link>
     </Card>
   );
 }

@@ -79,6 +79,14 @@
   color: #ef4444;
 }
 
+.bike-card-favorite.in-wishlist {
+  color: #ef4444;
+}
+
+.bike-card-favorite.in-wishlist:hover {
+  color: #dc2626;
+}
+
 .bike-card-favorite .anticon {
   font-size: 18px;
 }
@@ -143,4 +151,13 @@
   font-size: 13px;
   color: #6b7280;
   font-weight: 400;
+}
+
+.bike-card-view-details {
+  border-radius: 8px !important;
+}
+
+.bike-card-view-details:hover {
+  background-color: #00b89a !important;
+  color: #0f172a !important;
 }

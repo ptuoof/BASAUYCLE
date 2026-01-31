@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 import bikeLogo from "../../assets/bike-logo.png";
-import Header from "../../component/header";
+import Header from "../../components/header";
 
 const MyWallet = () => {
   const [activeTab, setActiveTab] = useState("deposit");
@@ -59,18 +59,7 @@ const MyWallet = () => {
 
   return (
     <div className="wallet-page">
-      <Header
-        navLinks={[
-          { label: "Browse", href: "#" },
-          { label: "Inspections", href: "#" },
-          { label: "How It Works", href: "#" },
-          { label: "About", href: "#" },
-        ]}
-        showSearch={true}
-        showAvatar={true}
-        showSellButton={true}
-        showLogin={true}
-      />
+      <Header />
       {/* Main Content */}
       <div className="wallet-container">
         <div className="wallet-title-section">
