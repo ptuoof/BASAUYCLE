@@ -41,9 +41,9 @@
 
 /* Active: teal background, black icon + text */
 .category-filter-button-active {
-  background: #00C9A7;
+  background: #00c9a7;
   color: #1a1a1a;
-  border-color: #00C9A7;
+  border-color: #00c9a7;
 }
 
 .category-filter-button-active:hover {

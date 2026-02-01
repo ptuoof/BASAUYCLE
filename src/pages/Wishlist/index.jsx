@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import WishlistCard from "../../components/card/WishlistCard";
+import WishlistCard from "../../components/wishlist";
 import { useWishlist } from "../../contexts/WishlistContext";
 import "./index.css";
 

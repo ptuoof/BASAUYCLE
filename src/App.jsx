@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
@@ -20,6 +20,12 @@ import ProductDetail from "./pages/ProductDetail";
 import Marketplace from "./pages/Marketplace";
 import ForgotPassword from "./pages/ForgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CategoryManagement from "./pages/admin/category";
+import AdminDashboard from "./pages/admin/dashboard";
+import AdminReports from "./pages/admin/reports";
+import AdminUsers from "./pages/admin/user";
+import AdminListings from "./pages/admin/listing";
+import AdminTransactions from "./pages/admin/transaction";
 
 const fontFamily =
   "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif";
@@ -100,6 +106,20 @@ function App() {
                         <Wallet />
                       </ProtectedRoute>
                     }
+                  />
+                  <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                  <Route path="/admin-reports" element={<AdminReports />} />
+                  <Route path="/admin-users" element={<AdminUsers />} />
+                  <Route path="/admin-listings" element={<AdminListings />} />
+                  <Route
+                    path="/admin-listing"
+                    element={<Navigate to="/admin-listings" replace />}
+                  />
+                  <Route path="/admin-transactions" element={<AdminTransactions />} />
+                  <Route path="/admin-categories" element={<CategoryManagement />} />
+                  <Route
+                    path="/admin/category"
+                    element={<Navigate to="/admin-categories" replace />}
                   />
                 </Routes>
               </NotificationProvider>

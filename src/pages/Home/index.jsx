@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import Header from "../../components/header";
 import Hero from "../../components/hero";
-import CategoryFilter from "../../components/category/CategoryFilter";
-import FeaturedBikes from "../../components/features/FeaturedBikes";
-import Features from "../../components/features/Features";
-import CTA from "../../components/category/CTA";
+import CategoryFilter from "../../components/admin/category";
+import FeaturedBikes from "../../components/featuredbikes";
+import Features from "../../components/features";
+import CTA from "../../components/CTA";
 import Footer from "../../components/footer";
 
 export default function Home() {
