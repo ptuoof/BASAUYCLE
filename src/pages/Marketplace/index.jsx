@@ -16,7 +16,24 @@ import {
   marketplaceBikes,
   TOTAL_MARKETPLACE_COUNT,
 } from "../../data/marketplaceBikes";
+import { usePostings } from "../../contexts/PostingContext";
+import { POSTING_STATUS } from "../../constants/postingStatus";
+import defaultBikeImage from "../../assets/bike-tarmac-sl7.png";
 import "./index.css";
+
+/** Convert a posting (from Post form) to bike shape for BikeCard */
+function postingToBike(p) {
+  return {
+    id: p.id,
+    name: p.bikeName || "Untitled",
+    price: p.priceDisplay || (p.price ? `$${p.price}` : "$0"),
+    category: p.category || "BIKE",
+    image: p.imageUrl || defaultBikeImage,
+    badge: p.status === POSTING_STATUS.ACTIVE ? "VERIFIED" : "PENDING",
+    specs: {},
+    sellerId: p.sellerId ?? null,
+  };
+}
 
 const BIKE_TYPES = [
   { id: "all", label: "All Bikes", icon: "🚴" },
@@ -33,6 +50,7 @@ const BRANDS = [
 ];
 
 export default function Marketplace() {
+  const { postings } = usePostings();
   const [bikeType, setBikeType] = useState("all");
   const [priceRange, setPriceRange] = useState([450, 2800]);
   const [verifiedOnly, setVerifiedOnly] = useState(true);
@@ -41,7 +59,18 @@ export default function Marketplace() {
   const [sortBy, setSortBy] = useState("newest");
   const [viewMode, setViewMode] = useState("grid");
 
-  const displayedCount = marketplaceBikes.length;
+  const allBikes = useMemo(() => {
+    const fromPostings = postings
+      .filter(
+        (p) =>
+          p.status === POSTING_STATUS.ACTIVE ||
+          p.status === POSTING_STATUS.PENDING_REVIEW,
+      )
+      .map(postingToBike);
+    return [...fromPostings, ...marketplaceBikes];
+  }, [postings]);
+
+  const displayedCount = allBikes.length;
 
   const toggleBrand = (id) => {
     setBrands((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -181,7 +210,7 @@ export default function Marketplace() {
         <main className="marketplace-main">
           <Box className="marketplace-results-header">
             <Typography className="marketplace-results-title">
-              Search Results ({TOTAL_MARKETPLACE_COUNT.toLocaleString()} bikes)
+              Search Results ({displayedCount} bikes)
             </Typography>
             <Box className="marketplace-results-actions">
               <select
@@ -215,7 +244,7 @@ export default function Marketplace() {
           <Box
             className={`marketplace-grid ${viewMode === "list" ? "list" : ""}`}
           >
-            {marketplaceBikes.map((bike) => (
+            {allBikes.map((bike) => (
               <BikeCard key={bike.id} bike={bike} />
             ))}
           </Box>
@@ -237,8 +266,7 @@ export default function Marketplace() {
               SHOW MORE RESULTS
             </Button>
             <Typography className="marketplace-result-count">
-              Showing {displayedCount} of{" "}
-              {TOTAL_MARKETPLACE_COUNT.toLocaleString()} bikes
+              Showing {displayedCount} bikes
             </Typography>
           </Box>
         </main>

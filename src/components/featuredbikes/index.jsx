@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -14,8 +14,24 @@ import bikeTarmac from "../../assets/bike-tarmac-sl7.png";
 import santaCruzNomadCC from "../../assets/SantaCruzNomaCC.png";
 import canyonGrizlCFSL from "../../assets/CanyonGrizlCFSL.jpg";
 import specializedTurboLevo from "../../assets/SpecializedTurboLevo.png";
-// Thêm ảnh vào src/assets/bike-tarmac-sl7-new.png rồi bật 2 dòng dưới và đổi image thành bikeTarmacSL7New
+import { usePostings } from "../../contexts/PostingContext";
+import { POSTING_STATUS } from "../../constants/postingStatus";
+// Add image to src/assets/bike-tarmac-sl7-new.png then enable the 2 lines below and set image to bikeTarmacSL7New
 // import bikeTarmacSL7New from "../../assets/bike-tarmac-sl7-new.png";
+
+/** Convert a posting to bike shape for BikeCard */
+function postingToBike(p) {
+  return {
+    id: p.id,
+    name: p.bikeName || "Untitled",
+    price: p.priceDisplay || (p.price ? `$${p.price}` : "$0"),
+    category: p.category || "BIKE",
+    image: p.imageUrl || bikeTarmac,
+    badge: p.status === POSTING_STATUS.ACTIVE ? "VERIFIED" : "PENDING",
+    specs: {},
+    sellerId: p.sellerId ?? null,
+  };
+}
 
 const featuredBikes = [
   {
@@ -200,6 +216,18 @@ const ArrowButton = styled(IconButton)(({ theme }) => ({
 
 export default function FeaturedBikes() {
   const scrollRef = useRef(null);
+  const { postings } = usePostings();
+
+  const allFeaturedBikes = useMemo(() => {
+    const fromPostings = postings
+      .filter(
+        (p) =>
+          p.status === POSTING_STATUS.ACTIVE ||
+          p.status === POSTING_STATUS.PENDING_REVIEW,
+      )
+      .map(postingToBike);
+    return [...fromPostings, ...featuredBikes];
+  }, [postings]);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -240,7 +268,7 @@ export default function FeaturedBikes() {
           </ArrowButton>
 
           <CarouselScroll ref={scrollRef}>
-            {featuredBikes.map((bike) => (
+            {allFeaturedBikes.map((bike) => (
               <CarouselCardSlot key={bike.id} className="bike-card-wrapper">
                 <BikeCard bike={bike} />
               </CarouselCardSlot>

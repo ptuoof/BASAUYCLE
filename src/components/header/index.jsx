@@ -27,7 +27,7 @@ import {
   CloseOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Receipt } from "lucide-react";
+import { Receipt, FileText } from "lucide-react";
 import bikeLogo from "../../assets/bike-logo.png";
 import { useAuth } from "../../contexts/AuthContext";
 import { useWishlist } from "../../contexts/WishlistContext";
@@ -209,6 +209,11 @@ const userMenuItems = [
     icon: <Receipt size={18} />,
   },
   {
+    label: "My Postings",
+    path: "/postings",
+    icon: <FileText size={18} />,
+  },
+  {
     label: "User Detail",
     path: "/user-detail",
     icon: <UserOutlined style={{ fontSize: 18 }} />,
@@ -354,7 +359,7 @@ export default function Header({
               }}
             >
               <Badge
-                badgeContent={wishlist.length}
+                badgeContent={isLoggedIn ? wishlist.length : 0}
                 showZero={false}
                 sx={{
                   "& .MuiBadge-badge": {
@@ -383,7 +388,11 @@ export default function Header({
                 },
               }}
             >
-              <Badge badgeContent={unreadCount} color="error" showZero={false}>
+              <Badge
+                badgeContent={isLoggedIn ? unreadCount : 0}
+                color="error"
+                showZero={false}
+              >
                 <BellOutlined style={{ fontSize: 20 }} />
               </Badge>
             </IconButton>
@@ -611,7 +620,7 @@ export default function Header({
                 onClick={markAllAsRead}
                 sx={{ color: "#00ccad", fontSize: 12, textTransform: "none" }}
               >
-                Đánh dấu đã đọc
+                Mark as read
               </Button>
             )}
           </Box>

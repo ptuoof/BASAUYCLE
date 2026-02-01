@@ -1,4 +1,4 @@
-/** Cấu hình navbar thống nhất cho toàn bộ web */
+/** Unified navbar config for the whole site */
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -17,6 +17,7 @@ const ROUTE_TO_ACTIVE_LINK = {
   "/wallet": "Home",
   "/payment": "Home",
   "/orders": "Home",
+  "/postings": "Home",
 };
 
 export function getActiveLink(pathname) {

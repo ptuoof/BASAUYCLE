@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Breadcrumb, Input, Select, Button, Upload } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Breadcrumb, Input, Select, Button, Upload, message } from "antd";
 import {
   InfoCircleOutlined,
   SettingOutlined,
@@ -11,11 +12,20 @@ import {
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import StepProgress from "../../components/StepProgress";
+import { usePostings } from "../../contexts/PostingContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNotifications } from "../../contexts/useNotifications";
+import { POSTING_STATUS } from "../../constants/postingStatus";
 import "./index.css";
 
 const { Dragger } = Upload;
 
 export default function PostBike() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { addPosting } = usePostings();
+  const { addNotification } = useNotifications();
+  const sellerId = user?.id ?? user?.email ?? null;
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSections, setCompletedSections] = useState([]);
 
@@ -26,6 +36,7 @@ export default function PostBike() {
   const [frameSize, setFrameSize] = useState("");
   const [frameMaterial, setFrameMaterial] = useState(undefined);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedImageDataUrls, setUploadedImageDataUrls] = useState([]);
   const [price, setPrice] = useState("");
 
   // Section IDs for scroll detection
@@ -50,8 +61,8 @@ export default function PostBike() {
       completed.push(1);
     }
 
-    // Photos/Videos: at least 3 photos
-    if (uploadedFiles.length >= 3) {
+    // Photos/Videos: exactly 6 photos required
+    if (uploadedFiles.length >= 6) {
       completed.push(2);
     }
 
@@ -114,22 +125,109 @@ export default function PostBike() {
     }
   };
 
+  const readAllImageFilesAsDataUrls = (fileList) => {
+    const imageFiles = fileList
+      .map((f) => f.originFileObj)
+      .filter((file) => file?.type?.startsWith("image/"));
+    if (imageFiles.length === 0) {
+      setUploadedImageDataUrls([]);
+      return;
+    }
+    let loaded = 0;
+    const results = [];
+    imageFiles.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        results[index] = reader.result;
+        loaded += 1;
+        if (loaded === imageFiles.length) {
+          setUploadedImageDataUrls(results.filter(Boolean));
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const uploadProps = {
     name: "file",
     multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    maxCount: 6,
+    listType: "picture-card",
+    fileList: uploadedFiles,
+    accept: "image/*",
+    customRequest({ file, onSuccess }) {
+      setTimeout(() => onSuccess({ url: "" }), 0);
+    },
     onChange(info) {
       const { status } = info.file;
       if (status === "done") {
-        console.log(`${info.file.name} file uploaded successfully.`);
         setUploadedFiles(info.fileList);
+        readAllImageFilesAsDataUrls(info.fileList);
+      } else if (status === "uploading" && info.fileList.length > 0) {
+        setUploadedFiles(info.fileList);
+        readAllImageFilesAsDataUrls(info.fileList);
       } else if (status === "error") {
-        console.log(`${info.file.name} file upload failed.`);
+        message.error(`${info.file.name} upload failed.`);
       }
     },
     onRemove(file) {
-      setUploadedFiles((prev) => prev.filter((f) => f.uid !== file.uid));
+      setUploadedFiles((prev) => {
+        const next = prev.filter((f) => f.uid !== file.uid);
+        if (next.length === 0) setUploadedImageDataUrls([]);
+        else readAllImageFilesAsDataUrls(next);
+        return next;
+      });
     },
+  };
+
+  const buildPayload = () => ({
+    bikeName: bikeName.trim() || "Untitled Listing",
+    brand,
+    category,
+    frameSize,
+    frameMaterial,
+    price: price.trim(),
+    imageUrl:
+      uploadedImageDataUrls[0] ||
+      uploadedFiles[0]?.thumbUrl ||
+      uploadedFiles[0]?.response?.url ||
+      null,
+    imageUrls: uploadedImageDataUrls.length > 0 ? uploadedImageDataUrls : null,
+  });
+
+  const handleSaveDraft = () => {
+    if (uploadedFiles.length < 6) {
+      message.warning("Please upload exactly 6 photos before saving.");
+      return;
+    }
+    addPosting(buildPayload(), POSTING_STATUS.DRAFT, sellerId);
+    addNotification({
+      title: "Draft saved",
+      message: "Your listing was saved. View it in My Postings.",
+      type: "info",
+    });
+    message.success("Draft saved. View in My Postings.");
+    navigate("/postings");
+  };
+
+  const handlePublish = () => {
+    if (!bikeName.trim() || !brand || !category || !price.trim()) {
+      message.warning("Please fill in basic info and price.");
+      return;
+    }
+    if (uploadedFiles.length < 6) {
+      message.warning("Please upload exactly 6 photos before publishing.");
+      return;
+    }
+    addPosting(buildPayload(), POSTING_STATUS.PENDING_REVIEW, sellerId);
+    addNotification({
+      title: "Listing submitted",
+      message:
+        "Your listing is now pending review. It will appear on Marketplace and Home.",
+      type: "success",
+    });
+    message.success("Listing submitted. View in My Postings.");
+    navigate("/postings");
   };
 
   return (
@@ -266,7 +364,10 @@ export default function PostBike() {
               <div className="section-title-row">
                 <CameraOutlined className="section-icon-teal" />
                 <h2 className="section-title">Photos & Videos</h2>
-                <span className="upload-counter">REQUIRED: MIN 3 PHOTOS</span>
+                <span className="upload-counter">
+                  {uploadedFiles.length}/6 photos
+                  {uploadedFiles.length < 6 && " (6 required)"}
+                </span>
               </div>
 
               <Dragger {...uploadProps} className="upload-dragger">
@@ -313,16 +414,23 @@ export default function PostBike() {
               className="action-btn-draft"
               type="text"
               icon={<ArrowLeftOutlined />}
+              onClick={handleSaveDraft}
             >
               Save as Draft
             </Button>
 
             <div className="action-btn-group">
-              <Button size="large" className="action-btn-prev">
-                Previous
-              </Button>
-              <Button type="primary" size="large" className="action-btn-next">
-                Next: Technical Specs
+              <Button
+                type="primary"
+                size="large"
+                className="action-btn-publish"
+                onClick={handlePublish}
+                style={{
+                  backgroundColor: "#16a34a",
+                  borderColor: "#16a34a",
+                }}
+              >
+                Post
               </Button>
             </div>
           </div>

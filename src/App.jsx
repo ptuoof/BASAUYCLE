@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
 import { OrderProvider } from "./contexts/OrderContext";
+import { PostingProvider } from "./contexts/PostingContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ConfigProvider } from "antd";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -28,6 +29,7 @@ import AdminUsers from "./pages/admin/user";
 import AdminListings from "./pages/admin/listing";
 import AdminTransactions from "./pages/admin/transaction";
 import Orders from "./pages/Orders";
+import Postings from "./pages/Postings";
 
 const fontFamily =
   "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif";
@@ -61,85 +63,104 @@ function App() {
           <AuthProvider>
             <WishlistProvider>
               <OrderProvider>
-                <NotificationProvider>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/marketplace" element={<Marketplace />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                  <Route
-                    path="/payment"
-                    element={
-                      <ProtectedRoute>
-                        <Payment />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/post"
-                    element={
-                      <ProtectedRoute>
-                        <PostBike />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/wishlist" element={<Wishlist />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route
-                    path="/user-detail"
-                    element={
-                      <ProtectedRoute>
-                        <UserDetail />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/set-profile"
-                    element={
-                      <ProtectedRoute>
-                        <SetProfile />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/wallet"
-                    element={
-                      <ProtectedRoute>
-                        <Wallet />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/orders"
-                    element={
-                      <ProtectedRoute>
-                        <Orders />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                  <Route path="/admin-reports" element={<AdminReports />} />
-                  <Route path="/admin-users" element={<AdminUsers />} />
-                  <Route path="/admin-listings" element={<AdminListings />} />
-                  <Route
-                    path="/admin-listing"
-                    element={<Navigate to="/admin-listings" replace />}
-                  />
-                  <Route
-                    path="/admin-transactions"
-                    element={<AdminTransactions />}
-                  />
-                  <Route
-                    path="/admin-categories"
-                    element={<CategoryManagement />}
-                  />
-                  <Route
-                    path="/admin/category"
-                    element={<Navigate to="/admin-categories" replace />}
-                  />
-                </Routes>
-                </NotificationProvider>
+                <PostingProvider>
+                  <NotificationProvider>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/marketplace" element={<Marketplace />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                      <Route
+                        path="/forgot-password"
+                        element={<ForgotPassword />}
+                      />
+                      <Route
+                        path="/payment"
+                        element={
+                          <ProtectedRoute>
+                            <Payment />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/post"
+                        element={
+                          <ProtectedRoute>
+                            <PostBike />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route path="/wishlist" element={<Wishlist />} />
+                      <Route path="/product/:id" element={<ProductDetail />} />
+                      <Route
+                        path="/user-detail"
+                        element={
+                          <ProtectedRoute>
+                            <UserDetail />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/set-profile"
+                        element={
+                          <ProtectedRoute>
+                            <SetProfile />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/wallet"
+                        element={
+                          <ProtectedRoute>
+                            <Wallet />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/orders"
+                        element={
+                          <ProtectedRoute>
+                            <Orders />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/postings"
+                        element={
+                          <ProtectedRoute>
+                            <Postings />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/admin-dashboard"
+                        element={<AdminDashboard />}
+                      />
+                      <Route path="/admin-reports" element={<AdminReports />} />
+                      <Route path="/admin-users" element={<AdminUsers />} />
+                      <Route
+                        path="/admin-listings"
+                        element={<AdminListings />}
+                      />
+                      <Route
+                        path="/admin-listing"
+                        element={<Navigate to="/admin-listings" replace />}
+                      />
+                      <Route
+                        path="/admin-transactions"
+                        element={<AdminTransactions />}
+                      />
+                      <Route
+                        path="/admin-categories"
+                        element={<CategoryManagement />}
+                      />
+                      <Route
+                        path="/admin/category"
+                        element={<Navigate to="/admin-categories" replace />}
+                      />
+                    </Routes>
+                  </NotificationProvider>
+                </PostingProvider>
               </OrderProvider>
             </WishlistProvider>
           </AuthProvider>

@@ -10,12 +10,19 @@ import {
 import "./index.css";
 import { useWishlist } from "../../contexts/WishlistContext";
 import { useOrders } from "../../contexts/OrderContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function BikeCard({ bike }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { addOrder } = useOrders();
   const inWishlist = isInWishlist(bike.id);
+
+  const isOwnListing =
+    bike.sellerId != null &&
+    user &&
+    (bike.sellerId === user.id || bike.sellerId === user.email);
 
   const handleFavoriteClick = (e) => {
     e.preventDefault();
@@ -154,13 +161,25 @@ export default function BikeCard({ bike }) {
         )}
       </Space>
       <div className="bike-card-actions">
-        <Button
-          type="primary"
-          onClick={handleBuy}
-          className="bike-card-btn bike-card-buy-now"
-        >
-          Buy Now
-        </Button>
+        {isOwnListing ? (
+          <Link to="/postings" className="bike-card-actions-link">
+            <Button
+              type="default"
+              className="bike-card-btn bike-card-view-details"
+              style={{ width: "100%" }}
+            >
+              Your listing
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            type="primary"
+            onClick={handleBuy}
+            className="bike-card-btn bike-card-buy-now"
+          >
+            Buy Now
+          </Button>
+        )}
         <Link to={`/product/${bike.id}`} className="bike-card-actions-link">
           <Button
             type="primary"

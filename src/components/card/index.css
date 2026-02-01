@@ -154,7 +154,7 @@
   font-weight: 400;
 }
 
-/* Actions: Buy Now (trên), View Details (dưới) - style giống nhau */
+/* Actions: Buy Now (top), View Details (bottom) - same style */
 .bike-card-actions {
   flex-shrink: 0 !important;
   display: flex !important;

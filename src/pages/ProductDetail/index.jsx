@@ -24,17 +24,66 @@ import Footer from "../../components/footer";
 import { getProductById } from "../../data/products";
 import { useWishlist } from "../../contexts/WishlistContext";
 import { useOrders } from "../../contexts/OrderContext";
+import { usePostings } from "../../contexts/PostingContext";
+import { useAuth } from "../../contexts/AuthContext";
+import defaultBikeImage from "../../assets/bike-tarmac-sl7.png";
 import "./index.css";
+
+/** Map a posting from PostingContext to the product shape used by ProductDetail */
+function postingToProduct(p) {
+  const defaultImg = p.imageUrl || defaultBikeImage;
+  const urls = p.imageUrls?.length > 0 ? p.imageUrls : [defaultImg];
+  const images =
+    urls.length >= 6
+      ? urls.slice(0, 6)
+      : [...urls, ...Array(6 - urls.length).fill(urls[0] || defaultBikeImage)];
+  return {
+    id: p.id,
+    name: p.bikeName || "Untitled",
+    price: p.priceDisplay || (p.price ? `$${p.price}` : "$0"),
+    image: images[0],
+    images,
+    category: p.category || "BIKE",
+    badge: p.status === "ACTIVE" ? "VERIFIED LISTING" : "PENDING",
+    specs: {
+      frame: p.frameMaterial || "—",
+      groupset: "—",
+      weight: p.frameSize ? `Size ${p.frameSize}` : undefined,
+    },
+    seller: {
+      name: "Seller",
+      rating: "—",
+      reviews: 0,
+      location: "—",
+      shippingEst: "—",
+    },
+    sellerId: p.sellerId ?? null,
+    description: "Listed on BASAUYCLE.",
+  };
+}
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { getPostingById } = usePostings();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { addOrder } = useOrders();
-  const product = getProductById(Number(id));
+
+  let product = getProductById(Number(id));
+  if (!product && typeof id === "string" && id.startsWith("post-")) {
+    const posting = getPostingById(id);
+    product = posting ? postingToProduct(posting) : null;
+  }
+
   const images =
     product?.images || (product ? Array(6).fill(product.image) : []);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const isOwnListing =
+    product?.sellerId != null &&
+    user &&
+    (product.sellerId === user.id || product.sellerId === user.email);
 
   if (!product) {
     return (
@@ -218,21 +267,43 @@ export default function ProductDetail() {
                 </Typography>
               )}
             </Box>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={handleBuyNow}
-              sx={{
-                bgcolor: "#00ccad",
-                color: "#0f172a",
-                fontWeight: 700,
-                py: 1.5,
-                mb: 3,
-                "&:hover": { bgcolor: "#00b89a" },
-              }}
-            >
-              Buy Now
-            </Button>
+            {isOwnListing ? (
+              <Button
+                variant="outlined"
+                fullWidth
+                component={Link}
+                to="/postings"
+                sx={{
+                  borderColor: "#00ccad",
+                  color: "#00ccad",
+                  fontWeight: 700,
+                  py: 1.5,
+                  mb: 3,
+                  "&:hover": {
+                    borderColor: "#00b89a",
+                    bgcolor: "rgba(0,204,173,0.08)",
+                  },
+                }}
+              >
+                Your listing
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={handleBuyNow}
+                sx={{
+                  bgcolor: "#00ccad",
+                  color: "#0f172a",
+                  fontWeight: 700,
+                  py: 1.5,
+                  mb: 3,
+                  "&:hover": { bgcolor: "#00b89a" },
+                }}
+              >
+                Buy Now
+              </Button>
+            )}
 
             {product.seller && (
               <Box
@@ -283,7 +354,7 @@ export default function ProductDetail() {
                     VeloHealth Score: {product.veloHealthScore}/100
                   </Typography>
                   <Typography variant="body2" color="#6b7280">
-                    Đã kiểm tra {product.inspectedDate}
+                    Inspected on {product.inspectedDate}
                   </Typography>
                 </Box>
               </Box>

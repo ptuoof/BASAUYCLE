@@ -21,18 +21,48 @@ import Footer from "../../../components/footer";
 import "./index.css";
 
 const SIDEBAR_ITEMS = [
-  { id: "dashboard", label: "Admin Dashboard", icon: <LayoutGrid />, path: "/admin-dashboard" },
-  { id: "users", label: "User Management", icon: <Users />, path: "/admin-users" },
-  { id: "listing", label: "Listing Approval", icon: <BadgeCheck />, path: "/admin-listings" },
-  { id: "categories", label: "Category Management", icon: <Tags />, path: "/admin-categories" },
-  { id: "transactions", label: "Transaction Management", icon: <ReceiptText />, path: "/admin-transactions" },
-  { id: "reports", label: "Reports & Statistics", icon: <BarChart3 />, path: "/admin-reports" },
+  {
+    id: "dashboard",
+    label: "Admin Dashboard",
+    icon: <LayoutGrid />,
+    path: "/admin-dashboard",
+  },
+  {
+    id: "users",
+    label: "User Management",
+    icon: <Users />,
+    path: "/admin-users",
+  },
+  {
+    id: "listing",
+    label: "Listing Approval",
+    icon: <BadgeCheck />,
+    path: "/admin-listings",
+  },
+  {
+    id: "categories",
+    label: "Category Management",
+    icon: <Tags />,
+    path: "/admin-categories",
+  },
+  {
+    id: "transactions",
+    label: "Transaction Management",
+    icon: <ReceiptText />,
+    path: "/admin-transactions",
+  },
+  {
+    id: "reports",
+    label: "Reports & Statistics",
+    icon: <BarChart3 />,
+    path: "/admin-reports",
+  },
 ];
 
 const CATEGORY_ROWS = [
   {
     id: "#CAT001",
-    name: "Xe đạp địa hình (MTB)",
+    name: "Mountain Bikes (MTB)",
     subLabel: "Mountain Bikes",
     iconColor: "#e5f8f3",
     icon: "mountain",
@@ -43,7 +73,7 @@ const CATEGORY_ROWS = [
   },
   {
     id: "#CAT002",
-    name: "Xe đạp đua (Road)",
+    name: "Road Bikes",
     subLabel: "Road Bikes",
     iconColor: "#fff2e5",
     icon: "road",
@@ -54,7 +84,7 @@ const CATEGORY_ROWS = [
   },
   {
     id: "#CAT003",
-    name: "Xe đạp điện (E-Bike)",
+    name: "Electric Bikes (E-Bike)",
     subLabel: "Electric Bikes",
     iconColor: "#eef1ff",
     icon: "electric",
@@ -65,7 +95,7 @@ const CATEGORY_ROWS = [
   },
   {
     id: "#CAT004",
-    name: "Xe đạp trẻ em",
+    name: "Kids Bikes",
     subLabel: "Kids Bikes",
     iconColor: "#eff4f8",
     icon: "kids",
@@ -92,8 +122,7 @@ export default function CategoryManagement() {
         row.subLabel.toLowerCase().includes(q) ||
         row.brands.toLowerCase().includes(q);
       const matchesStatus =
-        statusFilter === "all" ||
-        row.status.toLowerCase() === statusFilter;
+        statusFilter === "all" || row.status.toLowerCase() === statusFilter;
       return matchesSearch && matchesStatus;
     });
   }, [search, statusFilter]);
@@ -172,7 +201,9 @@ export default function CategoryManagement() {
             </div>
             <div className="category-management-stat-card">
               <div>
-                <span className="category-management-stat-label">Total Brands</span>
+                <span className="category-management-stat-label">
+                  Total Brands
+                </span>
                 <div className="category-management-stat-value">48</div>
               </div>
               <div className="category-management-stat-icon success">
@@ -253,7 +284,9 @@ export default function CategoryManagement() {
                   <div className="category-management-cell-brands">
                     {row.brands}
                   </div>
-                  <div className="category-management-cell-count">{row.count}</div>
+                  <div className="category-management-cell-count">
+                    {row.count}
+                  </div>
                   <div>
                     <span
                       className={`category-management-status ${row.statusTone}`}

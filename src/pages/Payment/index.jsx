@@ -80,8 +80,8 @@ export default function VNPayPayment() {
     if (orderIdFromUrl) {
       markOrderAsPaid(orderIdFromUrl);
       addNotification({
-        title: "Thanh toán thành công",
-        message: `Đơn hàng #${orderIdFromUrl} đã được thanh toán.`,
+        title: "Payment successful",
+        message: `Order #${orderIdFromUrl} has been paid.`,
         type: "success",
       });
       navigate("/orders");

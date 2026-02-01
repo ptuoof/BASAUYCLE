@@ -28,7 +28,7 @@
   );
 }
 
-/* Login: nền trắng, logo và footer tông tối hài hòa */
+/* Login: white background, logo and footer in dark tones */
 .auth-page--white {
   background: #fafafa;
 }
