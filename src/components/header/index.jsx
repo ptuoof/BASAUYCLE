@@ -27,6 +27,7 @@ import {
   CloseOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { Receipt } from "lucide-react";
 import bikeLogo from "../../assets/bike-logo.png";
 import { useAuth } from "../../contexts/AuthContext";
 import { useWishlist } from "../../contexts/WishlistContext";
@@ -201,6 +202,11 @@ const userMenuItems = [
     label: "Wallet",
     path: "/wallet",
     icon: <WalletOutlined style={{ fontSize: 18 }} />,
+  },
+  {
+    label: "Pending Payments",
+    path: "/orders",
+    icon: <Receipt size={18} />,
   },
   {
     label: "User Detail",

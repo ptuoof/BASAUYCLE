@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
+import { OrderProvider } from "./contexts/OrderContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ConfigProvider } from "antd";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -26,6 +27,7 @@ import AdminReports from "./pages/admin/reports";
 import AdminUsers from "./pages/admin/user";
 import AdminListings from "./pages/admin/listing";
 import AdminTransactions from "./pages/admin/transaction";
+import Orders from "./pages/Orders";
 
 const fontFamily =
   "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif";
@@ -58,7 +60,8 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <WishlistProvider>
-              <NotificationProvider>
+              <OrderProvider>
+                <NotificationProvider>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/marketplace" element={<Marketplace />} />
@@ -107,6 +110,14 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route
+                    path="/orders"
+                    element={
+                      <ProtectedRoute>
+                        <Orders />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/admin-reports" element={<AdminReports />} />
                   <Route path="/admin-users" element={<AdminUsers />} />
@@ -115,14 +126,21 @@ function App() {
                     path="/admin-listing"
                     element={<Navigate to="/admin-listings" replace />}
                   />
-                  <Route path="/admin-transactions" element={<AdminTransactions />} />
-                  <Route path="/admin-categories" element={<CategoryManagement />} />
+                  <Route
+                    path="/admin-transactions"
+                    element={<AdminTransactions />}
+                  />
+                  <Route
+                    path="/admin-categories"
+                    element={<CategoryManagement />}
+                  />
                   <Route
                     path="/admin/category"
                     element={<Navigate to="/admin-categories" replace />}
                   />
                 </Routes>
-              </NotificationProvider>
+                </NotificationProvider>
+              </OrderProvider>
             </WishlistProvider>
           </AuthProvider>
         </BrowserRouter>

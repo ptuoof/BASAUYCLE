@@ -2,7 +2,7 @@
 .bike-card {
   background: #fff;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   height: 100%;
@@ -21,6 +21,7 @@
   flex-direction: column;
   padding: 24px;
   min-height: 0;
+  overflow: visible;
 }
 
 .bike-card-image-wrapper {
@@ -153,11 +154,34 @@
   font-weight: 400;
 }
 
-.bike-card-view-details {
-  border-radius: 8px !important;
+/* Actions: Buy Now (trên), View Details (dưới) - style giống nhau */
+.bike-card-actions {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  padding-top: 16px !important;
 }
 
-.bike-card-view-details:hover {
+.bike-card-actions-link {
+  width: 100% !important;
+  text-decoration: none !important;
+}
+
+.bike-card-actions .bike-card-btn {
+  width: 100% !important;
+  height: 44px !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background-color: #00ccad !important;
+  color: #0f172a !important;
+}
+
+.bike-card-actions .bike-card-btn:hover {
   background-color: #00b89a !important;
   color: #0f172a !important;
 }

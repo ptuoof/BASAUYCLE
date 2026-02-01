@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import "./index.css";
 import bikeImage from "../../assets/bike-tarmac-sl7.png";
 import bikeLogo from "../../assets/bike-logo.png";
 import Header from "../../components/header";
+import { useOrders } from "../../contexts/OrderContext";
+import { useNotifications } from "../../contexts/useNotifications";
 
 const BANKS = [
   "VIETCOMBANK",
@@ -39,6 +41,25 @@ function formatTime(seconds) {
 }
 
 export default function VNPayPayment() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const orderIdFromUrl = searchParams.get("orderId");
+  const { markOrderAsPaid, getOrderByOrderId } = useOrders();
+  const { addNotification } = useNotifications();
+
+  const orderFromContext = orderIdFromUrl
+    ? getOrderByOrderId(orderIdFromUrl)
+    : null;
+  const displayOrder = orderFromContext
+    ? {
+        orderId: orderFromContext.orderId,
+        bikeName: orderFromContext.bikeName,
+        seller: "BASAUYCLE Seller",
+        price: orderFromContext.amountDue,
+        image: orderFromContext.image,
+      }
+    : ORDER_DATA;
+
   const [selectedBank, setSelectedBank] = useState(BANKS[0]);
   const [remaining, setRemaining] = useState(9 * 60 + 59); // 09:59
 
@@ -50,10 +71,23 @@ export default function VNPayPayment() {
     return () => clearInterval(timer);
   }, [remaining]);
 
-  const formattedTotal = useMemo(() => formatCurrencyVND(ORDER_DATA.price), []);
+  const formattedTotal = useMemo(
+    () => formatCurrencyVND(displayOrder.price),
+    [displayOrder.price],
+  );
 
   const handlePaid = () => {
-    window.alert("Payment submitted");
+    if (orderIdFromUrl) {
+      markOrderAsPaid(orderIdFromUrl);
+      addNotification({
+        title: "Thanh toán thành công",
+        message: `Đơn hàng #${orderIdFromUrl} đã được thanh toán.`,
+        type: "success",
+      });
+      navigate("/orders");
+    } else {
+      window.alert("Payment submitted");
+    }
   };
 
   const handleCancel = () => {
@@ -61,7 +95,8 @@ export default function VNPayPayment() {
       "Are you sure you want to cancel this transaction?",
     );
     if (ok) {
-      window.alert("Transaction cancelled");
+      if (orderIdFromUrl) navigate("/orders");
+      else window.alert("Transaction cancelled");
     }
   };
 
@@ -94,7 +129,7 @@ export default function VNPayPayment() {
               <div className="vnpay-card">
                 <div className="vnpay-transaction-header">
                   <span className="vnpay-order-badge">
-                    ORDER #{ORDER_DATA.orderId}
+                    ORDER #{displayOrder.orderId}
                   </span>
                   <span className="vnpay-transaction-time">2 mins ago</span>
                 </div>
@@ -102,15 +137,15 @@ export default function VNPayPayment() {
                 <div className="vnpay-transaction-body">
                   <img
                     className="vnpay-bike-image"
-                    src={bikeImage}
-                    alt={ORDER_DATA.bikeName}
+                    src={displayOrder.image || bikeImage}
+                    alt={displayOrder.bikeName}
                   />
                   <div>
                     <div className="vnpay-transaction-info-title">
-                      {ORDER_DATA.bikeName}
+                      {displayOrder.bikeName}
                     </div>
                     <div className="vnpay-transaction-info-sub">
-                      Seller: {ORDER_DATA.seller}
+                      Seller: {displayOrder.seller}
                     </div>
                     <div className="vnpay-transaction-row">
                       <span className="vnpay-transaction-label">Subtotal</span>

@@ -23,14 +23,17 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { getProductById } from "../../data/products";
 import { useWishlist } from "../../contexts/WishlistContext";
+import { useOrders } from "../../contexts/OrderContext";
 import "./index.css";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addOrder } = useOrders();
   const product = getProductById(Number(id));
-  const images = product?.images || (product ? Array(6).fill(product.image) : []);
+  const images =
+    product?.images || (product ? Array(6).fill(product.image) : []);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   if (!product) {
@@ -63,6 +66,11 @@ export default function ProductDetail() {
   const handleWishlistClick = () => {
     if (inWishlist) removeFromWishlist(product.id);
     else addToWishlist(product);
+  };
+
+  const handleBuyNow = () => {
+    addOrder(product);
+    navigate("/orders");
   };
 
   const breadcrumbs = [
@@ -213,6 +221,7 @@ export default function ProductDetail() {
             <Button
               variant="contained"
               fullWidth
+              onClick={handleBuyNow}
               sx={{
                 bgcolor: "#00ccad",
                 color: "#0f172a",

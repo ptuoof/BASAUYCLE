@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, Tag, Button, Space, Typography } from "antd";
 import {
   HeartOutlined,
@@ -9,9 +9,12 @@ import {
 } from "@ant-design/icons";
 import "./index.css";
 import { useWishlist } from "../../contexts/WishlistContext";
+import { useOrders } from "../../contexts/OrderContext";
 
 export default function BikeCard({ bike }) {
+  const navigate = useNavigate();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addOrder } = useOrders();
   const inWishlist = isInWishlist(bike.id);
 
   const handleFavoriteClick = (e) => {
@@ -22,6 +25,13 @@ export default function BikeCard({ bike }) {
     } else {
       addToWishlist(bike);
     }
+  };
+
+  const handleBuy = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addOrder(bike);
+    navigate("/orders");
   };
 
   const getBadgeStyle = (badge) => {
@@ -42,7 +52,7 @@ export default function BikeCard({ bike }) {
       hoverable
       style={{
         borderRadius: 16,
-        overflow: "hidden",
+        overflow: "visible",
         boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
         transition: "box-shadow 0.3s, transform 0.3s",
       }}
@@ -112,6 +122,7 @@ export default function BikeCard({ bike }) {
           flex: 1,
           display: "flex",
           flexDirection: "column",
+          overflow: "visible",
         },
       }}
     >
@@ -142,24 +153,23 @@ export default function BikeCard({ bike }) {
           </Space>
         )}
       </Space>
-      <Link
-        to={`/product/${bike.id}`}
-        style={{ textDecoration: "none", display: "block", marginTop: 16 }}
-      >
+      <div className="bike-card-actions">
         <Button
           type="primary"
-          block
-          className="bike-card-view-details"
-          style={{
-            backgroundColor: "#00ccad",
-            color: "#0f172a",
-            fontWeight: 700,
-            border: "none",
-          }}
+          onClick={handleBuy}
+          className="bike-card-btn bike-card-buy-now"
         >
-          View Details
+          Buy Now
         </Button>
-      </Link>
+        <Link to={`/product/${bike.id}`} className="bike-card-actions-link">
+          <Button
+            type="primary"
+            className="bike-card-btn bike-card-view-details"
+          >
+            View Details
+          </Button>
+        </Link>
+      </div>
     </Card>
   );
 }

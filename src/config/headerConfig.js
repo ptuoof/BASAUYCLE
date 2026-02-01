@@ -16,6 +16,7 @@ const ROUTE_TO_ACTIVE_LINK = {
   "/set-profile": "Home",
   "/wallet": "Home",
   "/payment": "Home",
+  "/orders": "Home",
 };
 
 export function getActiveLink(pathname) {
